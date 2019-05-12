@@ -1,0 +1,5 @@
+Passenger 4 2 12000 A sedan
+		Autotruck 7 12 15000.200 loose 4 minitruckbus
+
+Autotruck 7	 9loose 2 	minruckbus
+CargoPassenger 6 8 17500 overall pickup
