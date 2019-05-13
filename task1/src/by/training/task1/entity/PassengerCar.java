@@ -14,6 +14,10 @@ import java.util.Objects;
  */
 public class PassengerCar extends Car {
     /**
+     * Private constructor cause we use Builder pattern to create {@code PassengerCar}
+     */
+    private PassengerCar(){}
+    /**
      * All possible types of a passenger car body
      */
     public enum CarBodyType{

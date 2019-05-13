@@ -10,26 +10,37 @@ import by.training.task1.entity.Car;
  */
 public class ByCarrySpecification implements Specification<Car> {
     /**
+     * Maximum load capacity of a {@code Car}
+     */
+    private int maxCarrying;
+    /**
      * Minimum load capacity of a {@code Car}
      */
-    private int carrying;
+    private int minCarrying;
     /**
      * Constructs new {@code ByCarrySpecification} and initialize
-     * the minimum load capacity {@code carrying}.
+     * minimum load capacity {@code minCarrying}.
      *
-     * @param carrying minimum load capacity
+     * @param minCarrying minimum load capacity
      */
-    public ByCarrySpecification(int carrying){
-        this.carrying = carrying;
+    public ByCarrySpecification(int minCarrying){
+        this.maxCarrying = Integer.MAX_VALUE;
+        this.minCarrying = minCarrying;
+    }
+
+    public ByCarrySpecification(int minCarrying, int maxCarrying){
+        this.maxCarrying = maxCarrying;
+        this.minCarrying = minCarrying;
     }
     /**
      * Define whether a domain entity satisfy this {@code ByPassengersSpecification} or not.
      * @param car a domain entity
-     * @return {@code true} if the {@code Car.maxCarrying} greater than or equal to minimum load capacity,
-     *          otherwise {@code false}
+     * @return {@code true} if the {@code Car.maxCarrying} greater than or equal to minimum load capacity
+     *          and less than or equal to maximum load capacity, otherwise {@code false}
      */
     @Override
     public boolean match(Car car) {
-        return carrying <= car.getMaxCarrying();
+        return maxCarrying >= car.getMaxCarrying()
+                && minCarrying <= car.getMaxCarrying();
     }
 }

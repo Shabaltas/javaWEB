@@ -13,6 +13,10 @@ import java.util.Objects;
  */
 public class Autotruck extends Truck {
     /**
+     * Private constructor cause we use Builder pattern to create {@code Autotruck}
+     */
+    private Autotruck(){}
+    /**
      * All possible types of an autotruck body
      */
     public enum AutotruckType{

@@ -10,23 +10,30 @@ import by.training.task1.entity.Car;
  */
 public class ByCarrynPassengersSpec implements Specification<Car> {
     /**
+     * Maximum load capacity of a {@code Car}
+     */
+    private int maxCarrying;
+    /**
      * Minimum load capacity of a {@code Car}
      */
-    private int carrying;
+    private int minCarrying;
+    /**
+     * Maximum passenger capacity of a {@code Car}
+     */
+    private int maxCountPass;
     /**
      * Minimum passenger capacity of a {@code Car}
      */
-    private int countPass;
+    private int minCountPass;
     /**
-     * Constructs new {@code ByCarrynPassengersSpec} and initialize
-     * the minimum passenger capacity {@code countPass} and minimum load capacity {@code carrying}.
-     *
-     * @param carrying minimum load capacity
-     * @param countPass minimum passenger capacity
+     * Private constructor because Builder pattern is used to create {@code ByCarrynPassengersSpec}.
+     * Initializes all fields with default values.
      */
-    public ByCarrynPassengersSpec(int carrying, int countPass){
-        this.carrying = carrying;
-        this.countPass = countPass;
+    private ByCarrynPassengersSpec(){
+        maxCarrying = Integer.MAX_VALUE;
+        minCarrying = 0;
+        maxCountPass = Integer.MAX_VALUE;
+        minCountPass = 0;
     }
     /**
      * Define whether a domain entity satisfy this {@code ByCarrynPassengersSpec} or not.
@@ -37,6 +44,74 @@ public class ByCarrynPassengersSpec implements Specification<Car> {
      */
     @Override
     public boolean match(Car car) {
-        return carrying <= car.getMaxCarrying() && countPass <= car.getCountPassengers();
+        return new ByCarrySpecification(this.minCarrying, this.maxCarrying).match(car)
+                && new ByPassengersSpecification(this.minCountPass, this.maxCountPass).match(car);
+    }
+    /**
+     * Builder pattern implementation.
+     * Provides a flexible solution to create various object clearer
+     * without constructor overloading.
+     */
+    public static class Builder{
+        /**
+         * {@code ByCarrynPassengersSpec} that will be created
+         */
+        private ByCarrynPassengersSpec newSpec;
+
+        /**
+         * Constructs and initializes a new specification with
+         * default fields values.
+         */
+        public Builder(){
+            newSpec = new ByCarrynPassengersSpec();
+        }
+
+        /**
+         * Define minimum load capacity of a new specification.
+         *
+         * @param minCarry minimum load capacity
+         * @return this {@code Builder}
+         */
+        public Builder withMinCarry(int minCarry){
+            newSpec.minCarrying = minCarry;
+            return this;
+        }
+        /**
+         * Define maximum load capacity of a new specification.
+         *
+         * @param maxCarry maximum load capacity
+         * @return this {@code Builder}
+         */
+        public Builder withMaxCarry(int maxCarry){
+            newSpec.maxCarrying = maxCarry;
+            return this;
+        }
+        /**
+         * Define minimum passenger capacity of a new specification.
+         *
+         * @param minCountPass minimum passenger capacity
+         * @return this {@code Builder}
+         */
+        public Builder withMinCountPass(int minCountPass){
+            newSpec.minCountPass = minCountPass;
+            return this;
+        }
+        /**
+         * Define maximum passenger capacity of a new specification.
+         *
+         * @param maxCountPass maximum passenger capacity
+         * @return this {@code Builder}
+         */
+        public Builder withMaxCountPass(int maxCountPass){
+            newSpec.maxCountPass = maxCountPass;
+            return this;
+        }
+        /**
+         * Returns created new specification
+         * @return new {@code ByCarrynPassengersSpec}
+         */
+        public ByCarrynPassengersSpec build(){
+            return newSpec;
+        }
     }
 }

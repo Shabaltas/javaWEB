@@ -2,6 +2,7 @@ package by.training.task1.initializer;
 
 import by.training.task1.action.creator.Creator;
 import by.training.task1.entity.Car;
+import by.training.task1.exception.InvalidCarDataException;
 import by.training.task1.repository.Repository;
 import org.apache.log4j.Logger;
 
@@ -54,7 +55,11 @@ public class Initializer {
                     String[] params = line.split("\\s+");
                     Creator.create(params).ifPresent(optionalCar -> {
                         i[0]++;
-                        repository.add(optionalCar);
+                        try {
+                            repository.add(optionalCar);
+                        } catch (InvalidCarDataException e) {
+                            LOGGER.error(e);
+                        }
                         LOGGER.info("added " + optionalCar);
                     });
                 }

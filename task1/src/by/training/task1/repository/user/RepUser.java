@@ -14,7 +14,7 @@ public abstract class RepUser<T> {
     /**
      * Store the entity collection.
      */
-    Repository<T> repository;
+    protected Repository<T> repository;
 
     /**
      * Construct {@code RepUser<T>} and initialize this {@code Repository<T>} repository.

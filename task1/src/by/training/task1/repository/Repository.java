@@ -1,9 +1,11 @@
 package by.training.task1.repository;
 
+import by.training.task1.exception.InvalidCarDataException;
 import by.training.task1.repository.specification.Specification;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Provides an abstract storage engine for entity collections.
@@ -31,7 +33,7 @@ public interface Repository<T> {
      * Add the object in {@code Repository}
      * @param object object to add
      */
-    void add(T object);
+    void add(T object) throws InvalidCarDataException;
 
     /**
      * Remove the object from {@code Repository}
@@ -53,8 +55,8 @@ public interface Repository<T> {
     void update(T object);
 
     /**
-     * Returns {@code Repository} entity collection.
-     * @return {@code List} of stored objects
+     * Returns an object from {@code Repository} with that {@code index}.
+     * @return an object with that index
      */
-    List<T> getAll();
+    Optional<T> get(int index);
 }

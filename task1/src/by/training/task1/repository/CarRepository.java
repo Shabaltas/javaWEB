@@ -1,11 +1,14 @@
 package by.training.task1.repository;
 
 import by.training.task1.entity.Car;
+import by.training.task1.exception.InvalidCarDataException;
+import by.training.task1.repository.specification.ByIDSpecification;
 import by.training.task1.repository.specification.Specification;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * {@code Repository} implementation that store {@code Car} objects.
@@ -19,6 +22,10 @@ public class CarRepository implements Repository<Car> {
      * The {@code List} of {@code Car} objects.
      */
     private List<Car> cars = new ArrayList<>();
+    /**
+     * Counts Counts the number of already added entities in the repository.
+     */
+    public int count = 0;
     /**
      * The only instance of {@code CarRepository} that can be created.
      */
@@ -64,8 +71,13 @@ public class CarRepository implements Repository<Car> {
      * @param object {@code Car} to add
      */
     @Override
-    public void add(Car object) {
-        cars.add(object);
+    public void add(Car object) throws InvalidCarDataException{
+        if (find(new ByIDSpecification(object.getId())).isEmpty()) {
+            cars.add(object);
+            count++;
+        }else{
+            throw new InvalidCarDataException("Duplicate id " + object.getId());
+        }
     }
     /**
      * Remove the {@code Car} from this {@code CarRepository}
@@ -74,6 +86,7 @@ public class CarRepository implements Repository<Car> {
     @Override
     public void remove(Car object) {
         cars.remove(object);
+        count--;
     }
     /**
      * Find the {@code Car} objects in this {@code CarRepository} that satisfy the search specification
@@ -86,6 +99,7 @@ public class CarRepository implements Repository<Car> {
         while (i < cars.size()) {
             if (spec.match(cars.get(i))) {
                 cars.remove(i);
+                count--;
             } else {
                 i++;
             }
@@ -97,19 +111,23 @@ public class CarRepository implements Repository<Car> {
      */
     @Override
     public void update(Car object) {
-        cars.forEach(car -> {
-            if (car.getId() == object.getId()){
-                car = object;
+        for (int i = 0; i < cars.size(); i++){
+            if (cars.get(i).getId() == object.getId()){
+                cars.remove(i);
+                cars.add(i, object);
             }
-        });
+        }
     }
     /**
-     * Returns this {@code CarRepository} entity collection.
-     * @return {@code List} of stored {@code Car} objects
+     * Returns a {@code Car} from {@code Repository} with that {@code index}.
+     * @return a {@code Car} with that index
      */
     @Override
-    public List<Car> getAll(){
-        return cars;
+    public Optional<Car> get(int index){
+        if (index < count) {
+            return Optional.of(cars.get(index));
+        }
+        return Optional.empty();
     }
 }
 
