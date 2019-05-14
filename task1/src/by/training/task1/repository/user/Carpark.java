@@ -27,7 +27,7 @@ public class Carpark extends RepUser<Car> {
     public BigDecimal getTotalCost() {
         BigDecimal amount = BigDecimal.valueOf(0);
         for (int i = 0; i < ((CarRepository)(repository)).getCount(); i++){
-            amount = amount.add(repository.get(i).get().getCost());
+            amount = amount.add(repository.get(i).getCost());
         }
         return amount;
     }

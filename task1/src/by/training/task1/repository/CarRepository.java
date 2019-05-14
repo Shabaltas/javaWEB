@@ -1,6 +1,7 @@
 package by.training.task1.repository;
 
 import by.training.task1.entity.Car;
+import by.training.task1.exception.IndexOutOfRepositoryBoundsException;
 import by.training.task1.exception.InvalidCarDataException;
 import by.training.task1.repository.specification.ByIDSpecification;
 import by.training.task1.repository.specification.Specification;
@@ -8,7 +9,6 @@ import by.training.task1.repository.specification.Specification;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * {@code Repository} implementation that store {@code Car} objects.
@@ -116,11 +116,8 @@ public class CarRepository implements Repository<Car> {
      * @return a {@code Car} with that index
      */
     @Override
-    public Optional<Car> get(int index){
-        if (index < cars.size()) {
-            return Optional.of(cars.get(index));
-        }
-        return Optional.empty();
+    public Car get(int index){
+        return cars.get(index);
     }
 
     /**

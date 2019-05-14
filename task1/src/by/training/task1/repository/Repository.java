@@ -1,11 +1,11 @@
 package by.training.task1.repository;
 
+import by.training.task1.exception.IndexOutOfRepositoryBoundsException;
 import by.training.task1.exception.InvalidCarDataException;
 import by.training.task1.repository.specification.Specification;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Provides an abstract storage engine for entity collections.
@@ -58,5 +58,5 @@ public interface Repository<T> {
      * Returns an object from {@code Repository} with that {@code index}.
      * @return an object with that index
      */
-    Optional<T> get(int index);
+    T get(int index);
 }

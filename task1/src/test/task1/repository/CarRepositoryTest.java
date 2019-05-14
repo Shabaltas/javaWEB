@@ -1,6 +1,6 @@
 package test.task1.repository;
 
-import by.training.task1.comparator.CarComparator;
+import by.training.task1.comparator.*;
 import by.training.task1.entity.*;
 import by.training.task1.initializer.Initializer;
 import by.training.task1.repository.CarRepository;
@@ -230,7 +230,9 @@ public class CarRepositoryTest {
     @DataProvider(name = "4sortTest")
     public static Object[][] creatData4sort(){
         return new Object[][]{
-                {CarComparator.cmpCountCarryCost,
+                {PassengerComparator.getInstance()
+                        .thenComparing(CarryingComparator.getInstance())
+                        .thenComparing(CostComparator.getInstance()),
                         new ArrayList<>(Arrays.asList(
                                 new Autotruck.Builder()
                                         .withId(5)
@@ -308,7 +310,7 @@ public class CarRepositoryTest {
                                         .withBodyType(PassengerCar.CarBodyType.CABRIOLET)
                                         .build()
                         ))},
-                {CarComparator.cmpId, expectedInitialCars}
+                {IdComparator.getInstance(), expectedInitialCars}
         };
     }
 
@@ -317,7 +319,7 @@ public class CarRepositoryTest {
         List<Car> actual = new ArrayList<>();
         rep.sort(comparator);
         for (int i = 0; i < rep.getCount(); i++){
-            actual.add(rep.get(i).get());
+            actual.add(rep.get(i));
         }
         assertEquals(actual, expected);
     }
@@ -419,7 +421,7 @@ public class CarRepositoryTest {
         rep.remove(object);
         List<Car> actual = new ArrayList<>();
         for (int i = 0; i < rep.getCount(); i++){
-            actual.add(rep.get(i).get());
+            actual.add(rep.get(i));
         }
         assertEquals(actual, expected);
     }
