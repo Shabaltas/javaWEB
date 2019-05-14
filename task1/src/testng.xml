@@ -4,12 +4,10 @@
 <suite name="Suite1" verbose="1" >
     <test name="test1">
         <classes>
-            <class name="test.task1.SomeTest">
-                <methods>
-                    <include name="getSumTest" />
-                </methods>
-            </class>
-            <!-- <class name="test.sample.ParameterTest"/> -->
+            <class name="test.task1.validator.CarValidatorTest"/>
+            <class name="test.task1.parser.ParserTest"/>
+            <class name="test.task1.creator.CreatorTest"/>
+            <class name="test.task1.repository.CarRepositoryTest"/>
         </classes>
     </test>
 </suite>

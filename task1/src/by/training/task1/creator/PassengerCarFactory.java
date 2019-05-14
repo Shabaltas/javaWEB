@@ -1,11 +1,13 @@
-package by.training.task1.action.creator;
+package by.training.task1.creator;
 
 import by.training.task1.entity.PassengerCar;
-import by.training.task1.action.validator.CarValidator;
+import by.training.task1.validator.CarValidator;
 import by.training.task1.exception.InvalidCarDataException;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * {@code CarFactory} implementation to create concrete {@code PassengerCar} object.
   *
@@ -17,7 +19,7 @@ public class PassengerCarFactory implements CarFactory {
     /**
      * Logger to log information, errors and warnings and others.
      */
-    private static final Logger LOGGER = Logger.getLogger(PassengerCarFactory.class);
+    private static final Logger LOGGER = Logger.getLogger(PassengerCarFactory.class.getSimpleName());
 
     /**
      * Factory method that check input data and if it is valid,
@@ -29,19 +31,19 @@ public class PassengerCarFactory implements CarFactory {
      *          otherwise {@code null}.
      */
     @Override
-    public PassengerCar getAuto(String[] params) {
+    public PassengerCar getAuto(List<String> params) {
         try{
-            CarValidator.getInstance().validatePassengerCar(params);
+            CarValidator.validatePassengerCar(params);
             return new PassengerCar.Builder()
-                    .withId(Integer.valueOf(params[0]))
-                    .withCountPassengers(Integer.valueOf(params[1]))
-                    .withMaxCarrying(Integer.valueOf(params[2]))
-                    .withCost(BigDecimal.valueOf(Double.valueOf(params[3])))
-                    .withClassCar(PassengerCar.ClassCar.valueOf(params[4]))
-                    .withBodyType(PassengerCar.CarBodyType.valueOf(params[5]))
+                    .withId(Integer.valueOf(params.get(0)))
+                    .withCountPassengers(Integer.valueOf(params.get(1)))
+                    .withMaxCarrying(Integer.valueOf(params.get(2)))
+                    .withCost(BigDecimal.valueOf(Double.valueOf(params.get(3))))
+                    .withClassCar(PassengerCar.ClassCar.valueOf(params.get(4)))
+                    .withBodyType(PassengerCar.CarBodyType.valueOf(params.get(5)))
                     .build();
         }catch (InvalidCarDataException e) {
-            LOGGER.error("INVALID DATA INPUT");
+            LOGGER.warn(e);
             return null;
         }
     }

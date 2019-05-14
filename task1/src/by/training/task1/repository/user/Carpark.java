@@ -4,7 +4,6 @@ import by.training.task1.entity.Car;
 import by.training.task1.repository.CarRepository;
 
 import java.math.BigDecimal;
-import java.util.List;
 /**
  * {@code RepUser} implementation, that contain entity collection throw the {@code CarRepository}.
  *
@@ -27,7 +26,7 @@ public class Carpark extends RepUser<Car> {
      */
     public BigDecimal getTotalCost() {
         BigDecimal amount = BigDecimal.valueOf(0);
-        for (int i = 0; i < ((CarRepository)(repository)).count; i++){
+        for (int i = 0; i < ((CarRepository)(repository)).getCount(); i++){
             amount = amount.add(repository.get(i).get().getCost());
         }
         return amount;

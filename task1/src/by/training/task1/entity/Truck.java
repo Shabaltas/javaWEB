@@ -18,7 +18,7 @@ public abstract class Truck extends Car {
         LOOSE,
         LIQUID,
         SPECIAL,
-        DABGEROUS
+        DANGEROUS
     }
 
     /**

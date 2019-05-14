@@ -1,6 +1,7 @@
-package by.training.task1.action.creator;
+package by.training.task1.creator;
 
 import by.training.task1.entity.Car;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 /**
@@ -17,6 +18,10 @@ public class Creator {
      * There is no need to creat an instance.
      */
     private Creator(){}
+    /**
+     * Logger to log information, errors and warnings and others.
+     */
+    private static final Logger LOGGER = Logger.getLogger(Creator.class.getSimpleName());
     /**
      * Constants that define type of a factory in {@code factoryHashMap}.
      */
@@ -39,11 +44,9 @@ public class Creator {
      * @return if {@code params} are valid return created {@code Optional<Car>},
      *          otherwise {@code Optional.empty()}.
      */
-    public static Optional<Car> create(String[] params){
-        Optional<CarFactory> optionalFactory = Optional.ofNullable(factoryHashMap.get(params[1]));
-        String[] newParams = new String[params.length-1];
-        newParams[0] = params[0];
-        System.arraycopy(params, 2, newParams, 1, params.length - 2);
-        return optionalFactory.map(carFactory -> carFactory.getAuto(newParams));
+    public static Optional<Car> create(List<String> params){
+        Optional<CarFactory> optionalFactory = Optional.ofNullable(factoryHashMap.get(params.get(0)));
+        LOGGER.debug("chosen factory: " + (optionalFactory.isPresent() ? optionalFactory.get().getClass().getSimpleName() : "null"));
+        return optionalFactory.map(carFactory -> carFactory.getAuto(params.subList(1, params.size())));
     }
 }

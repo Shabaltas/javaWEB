@@ -1,6 +1,8 @@
-package by.training.task1.action.creator;
+package by.training.task1.creator;
 
 import by.training.task1.entity.Car;
+
+import java.util.List;
 
 /**
  * Interface that declares the factory method that returns new {@code Car} objects.
@@ -16,5 +18,5 @@ public interface CarFactory {
      * @param params necessary parameters to create a {@code Car}
      * @return created {@code Car}
      */
-    Car getAuto(String[] params);
+    Car getAuto(List<String> params);
 }

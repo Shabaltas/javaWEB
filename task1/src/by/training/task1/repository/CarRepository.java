@@ -23,10 +23,6 @@ public class CarRepository implements Repository<Car> {
      */
     private List<Car> cars = new ArrayList<>();
     /**
-     * Counts Counts the number of already added entities in the repository.
-     */
-    public int count = 0;
-    /**
      * The only instance of {@code CarRepository} that can be created.
      */
     private static  CarRepository instance;
@@ -74,7 +70,6 @@ public class CarRepository implements Repository<Car> {
     public void add(Car object) throws InvalidCarDataException{
         if (find(new ByIDSpecification(object.getId())).isEmpty()) {
             cars.add(object);
-            count++;
         }else{
             throw new InvalidCarDataException("Duplicate id " + object.getId());
         }
@@ -86,7 +81,6 @@ public class CarRepository implements Repository<Car> {
     @Override
     public void remove(Car object) {
         cars.remove(object);
-        count--;
     }
     /**
      * Find the {@code Car} objects in this {@code CarRepository} that satisfy the search specification
@@ -99,7 +93,6 @@ public class CarRepository implements Repository<Car> {
         while (i < cars.size()) {
             if (spec.match(cars.get(i))) {
                 cars.remove(i);
-                count--;
             } else {
                 i++;
             }
@@ -124,10 +117,18 @@ public class CarRepository implements Repository<Car> {
      */
     @Override
     public Optional<Car> get(int index){
-        if (index < count) {
+        if (index < cars.size()) {
             return Optional.of(cars.get(index));
         }
         return Optional.empty();
+    }
+
+    /**
+     * Returns the number of entities in the repository.
+     * @return the number of entities in the repository
+     */
+    public int getCount(){
+        return cars.size();
     }
 }
 

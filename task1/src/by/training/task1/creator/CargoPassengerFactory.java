@@ -1,12 +1,14 @@
-package by.training.task1.action.creator;
+package by.training.task1.creator;
 
 import by.training.task1.entity.CargoPassengerCar;
 import by.training.task1.entity.Truck;
-import by.training.task1.action.validator.CarValidator;
+import by.training.task1.validator.CarValidator;
 import by.training.task1.exception.InvalidCarDataException;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * {@code CarFactory} implementation to create concrete {@code CargoPassengerCar} object.
  *
@@ -18,7 +20,7 @@ public class CargoPassengerFactory implements CarFactory {
     /**
      * Logger to log information, errors and warnings and others.
      */
-    private static final Logger LOGGER = Logger.getLogger(CargoPassengerFactory.class);
+    private static final Logger LOGGER = Logger.getLogger(CargoPassengerFactory.class.getSimpleName());
     /**
      * Factory method that check input data and if it is valid,
      * create and return new {@code CargoPassengerCar}.
@@ -29,19 +31,19 @@ public class CargoPassengerFactory implements CarFactory {
      *          otherwise {@code null}.
      */
     @Override
-    public CargoPassengerCar getAuto(String[] params) {
+    public CargoPassengerCar getAuto(List<String> params) {
         try {
-            CarValidator.getInstance().validateCargoPassenger(params);
+            CarValidator.validateCargoPassenger(params);
             return new CargoPassengerCar.Builder()
-                    .withId(Integer.valueOf(params[0]))
-                    .withCountPassengers(Integer.valueOf(params[1]))
-                    .withMaxCarrying(Integer.valueOf(params[2]))
-                    .withCost(BigDecimal.valueOf(Double.valueOf(params[3])))
-                    .withCargoType(Truck.CargoType.valueOf(params[4]))
-                    .withType(CargoPassengerCar.CargoPassengerType.valueOf(params[5]))
+                    .withId(Integer.valueOf(params.get(0)))
+                    .withCountPassengers(Integer.valueOf(params.get(1)))
+                    .withMaxCarrying(Integer.valueOf(params.get(2)))
+                    .withCost(BigDecimal.valueOf(Double.valueOf(params.get(3))))
+                    .withCargoType(Truck.CargoType.valueOf(params.get(4)))
+                    .withType(CargoPassengerCar.CargoPassengerType.valueOf(params.get(5)))
                     .build();
         }catch (InvalidCarDataException e){
-            LOGGER.error("INVALID DATA INPUT");
+            LOGGER.warn(e);
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package by.training.task1.action.comparator;
+package by.training.task1.comparator;
 
 import by.training.task1.entity.Car;
 
