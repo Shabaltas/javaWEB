@@ -4,7 +4,6 @@ import by.training.task1.comparator.CarryingComparator;
 import by.training.task1.comparator.CostComparator;
 import by.training.task1.comparator.PassengerComparator;
 import by.training.task1.entity.Car;
-import by.training.task1.exception.IndexOutOfRepositoryBoundsException;
 import by.training.task1.initializer.Initializer;
 import by.training.task1.repository.specification.ByCarrynPassengersSpec;
 import by.training.task1.repository.specification.Specification;

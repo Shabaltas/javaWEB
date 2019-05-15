@@ -40,6 +40,7 @@ public class ParserTest {
         expected.add(line4);
         return new Object[][]{
                 {"data\\forParserTest.txt", expected},
+                {"data\\empty.txt", new ArrayList<>()}
         };
     }
     @Test(dataProvider = "rightFile")

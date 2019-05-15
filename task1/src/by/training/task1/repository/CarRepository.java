@@ -1,7 +1,6 @@
 package by.training.task1.repository;
 
 import by.training.task1.entity.Car;
-import by.training.task1.exception.IndexOutOfRepositoryBoundsException;
 import by.training.task1.exception.InvalidCarDataException;
 import by.training.task1.repository.specification.ByIDSpecification;
 import by.training.task1.repository.specification.Specification;

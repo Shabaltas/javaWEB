@@ -2,10 +2,12 @@ package test.task1.repository;
 
 import by.training.task1.comparator.*;
 import by.training.task1.entity.*;
+import by.training.task1.exception.InvalidCarDataException;
 import by.training.task1.initializer.Initializer;
 import by.training.task1.repository.CarRepository;
 import by.training.task1.repository.specification.*;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertThrows;
 
 public class CarRepositoryTest {
 
@@ -95,10 +98,14 @@ public class CarRepositoryTest {
                     .withType(CargoPassengerCar.CargoPassengerType.PICKUP)
                     .build()
     ));
-    @BeforeMethod
-    public static void initRep() throws IOException {
+    @BeforeTest
+    public static void initRep() throws InvalidCarDataException {
         rep = CarRepository.getInstance();
-        Initializer.initializeFromFile("data\\input.txt", rep);
+        if (rep.getCount() == 0) {
+            for (Car car : expectedInitialCars) {
+                rep.add(car);
+            }
+        }
     }
 
     @DataProvider(name = "4findTest")
@@ -323,7 +330,7 @@ public class CarRepositoryTest {
         }
         assertEquals(actual, expected);
     }
-/*All tests are performed randomly and I can not predict which ones will be after deleting / adding objects
+/*All tests are performed randomly and I can not predict which ones will be after deleting / adding objects*/
 
     @DataProvider(name = "4removeBeanTest")
     public static Object[][] createData4removeBean(){
@@ -412,12 +419,16 @@ public class CarRepositoryTest {
                         .withCargoType(Truck.CargoType.LOOSE)
                         .withCountAxles((byte)4)
                         .withBodyType(Autotruck.AutotruckType.MINITRUCKBUS)
-                        .build(), expectedCars}
+                        .build(), expectedInitialCars}
         };
     }
 
     @Test(dataProvider = "4removeBeanTest")
-    public static void removeBeanTest(Car object, List<Car> expected){
+    public static void removeBeanTest(Car object, List<Car> expected) throws InvalidCarDataException {
+        for (Car car : expectedInitialCars){
+            rep.remove(car);
+        }
+        initRep();
         rep.remove(object);
         List<Car> actual = new ArrayList<>();
         for (int i = 0; i < rep.getCount(); i++){
@@ -425,5 +436,130 @@ public class CarRepositoryTest {
         }
         assertEquals(actual, expected);
     }
-    */
+
+    @DataProvider(name = "4addBeanTest")
+    public static Object[][] createData4addBean(){
+        return new Object[][]{
+                {new Autotruck.Builder()
+                        .withId(12)
+                        .withCost(BigDecimal.valueOf(9000.780))
+                        .build(), new ArrayList<>(Arrays.asList(
+                        new PassengerCar.Builder()
+                                .withId(1)
+                                .withCountPassengers(4)
+                                .withMaxCarrying(2)
+                                .withCost(BigDecimal.valueOf(12000))
+                                .withClassCar(PassengerCar.ClassCar.A)
+                                .withBodyType(PassengerCar.CarBodyType.SEDAN)
+                                .build(),
+                        new Autotruck.Builder()
+                                .withId(2)
+                                .withCountPassengers(7)
+                                .withMaxCarrying(12)
+                                .withCost(BigDecimal.valueOf(15000.200))
+                                .withCargoType(Truck.CargoType.LOOSE)
+                                .withCountAxles((byte)4)
+                                .withBodyType(Autotruck.AutotruckType.MINITRUCKBUS)
+                                .build(),
+                        new CargoPassengerCar.Builder()
+                                .withId(3)
+                                .withCountPassengers(6)
+                                .withMaxCarrying(8)
+                                .withCost(BigDecimal.valueOf(17500))
+                                .withCargoType(Truck.CargoType.OVERALL)
+                                .withType(CargoPassengerCar.CargoPassengerType.PICKUP)
+                                .build(),
+                        new Autotruck.Builder()
+                                .withId(4)
+                                .withCountPassengers(7)
+                                .withMaxCarrying(12)
+                                .withCost(BigDecimal.valueOf(15000.200))
+                                .withCargoType(Truck.CargoType.LOOSE)
+                                .withCountAxles((byte)4)
+                                .withBodyType(Autotruck.AutotruckType.MINITRUCKBUS)
+                                .build(),
+                        new Autotruck.Builder()
+                                .withId(5)
+                                .withCountPassengers(2)
+                                .withMaxCarrying(9)
+                                .withCost(BigDecimal.valueOf(15789))
+                                .withCargoType(Truck.CargoType.DANGEROUS)
+                                .withCountAxles((byte)3)
+                                .withBodyType(Autotruck.AutotruckType.REFRIGERATOR)
+                                .build(),
+                        new CargoPassengerCar.Builder()
+                                .withId(6)
+                                .withCountPassengers(7)
+                                .withMaxCarrying(12)
+                                .withCost(BigDecimal.valueOf(8900))
+                                .withCargoType(Truck.CargoType.OVERALL)
+                                .withType(CargoPassengerCar.CargoPassengerType.MINIVAN)
+                                .build(),
+                        new PassengerCar.Builder()
+                                .withId(7)
+                                .withCountPassengers(6)
+                                .withMaxCarrying(8)
+                                .withCost(BigDecimal.valueOf(1200))
+                                .withClassCar(PassengerCar.ClassCar.C)
+                                .withBodyType(PassengerCar.CarBodyType.TARGA)
+                                .build(),
+                        new PassengerCar.Builder()
+                                .withId(8)
+                                .withCountPassengers(20)
+                                .withMaxCarrying(8)
+                                .withCost(BigDecimal.valueOf(17500.2))
+                                .withClassCar(PassengerCar.ClassCar.F)
+                                .withBodyType(PassengerCar.CarBodyType.CABRIOLET)
+                                .build(),
+                        new CargoPassengerCar.Builder()
+                                .withId(9)
+                                .withCountPassengers(2)
+                                .withMaxCarrying(99)
+                                .withCost(BigDecimal.valueOf(11000))
+                                .withCargoType(Truck.CargoType.SPECIAL)
+                                .withType(CargoPassengerCar.CargoPassengerType.PICKUP)
+                                .build(),
+                        new Autotruck.Builder()
+                                .withId(12)
+                                .withCost(BigDecimal.valueOf(9000.780))
+                                .build()
+                ))}
+        };
+    }
+
+    @Test(dataProvider = "4addBeanTest")
+    public static void addBeanTest(Car object, List<Car> expected) throws InvalidCarDataException {
+        for (Car car : expectedInitialCars){
+            rep.remove(car);
+        }
+        initRep();
+        rep.add(object);
+        List<Car> actual = new ArrayList<>();
+        for (int i = 0; i < rep.getCount(); i++){
+            actual.add(rep.get(i));
+        }
+        assertEquals(actual, expected);
+        rep.remove(object);
+    }
+
+    //duplicate id
+    @DataProvider(name = "4badAddBeanTest")
+    public static Object[][] createData4badAddBean(){
+        return new Object[][]{
+                {new Autotruck.Builder()
+                        .withId(1)
+                        .withCost(BigDecimal.valueOf(9000.780))
+                        .build(),}
+        };
+    }
+
+    @Test(dataProvider = "4badAddBeanTest")
+    public static void badAddBeanTest(Car object) throws InvalidCarDataException {
+        for (Car car : expectedInitialCars){
+            rep.remove(car);
+        }
+        initRep();
+        assertThrows(InvalidCarDataException.class, () -> rep.add(object));
+    }
+
 }
