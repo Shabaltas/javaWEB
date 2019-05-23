@@ -1,4 +1,4 @@
-package by.training.task2.constants;
+package by.training.task2.composite.constants;
 
 import by.training.task2.composite.*;
 

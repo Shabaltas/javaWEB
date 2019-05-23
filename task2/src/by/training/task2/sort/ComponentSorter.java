@@ -1,29 +1,38 @@
 package by.training.task2.sort;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import by.training.task2.composite.*;
 
-public class Sorter {
+import static by.training.task2.utility.ComponentWorker.getAllComponents;
 
-	public Sorter() {
-		// TODO Auto-generated constructor stub
+public class ComponentSorter {
+
+	public ComponentSorter() {
 	}
 
-	public static <T extends Composite> void sortByComponents(T composite){
+	public <T extends Composite> void sortComponents(T composite){
 		List<? extends Composite> compositeList = getAllComponents(composite);
-		sortList(compositeList);
+		sortByComponents(compositeList);
 		composite.removeAll();
 		composite.addComponents(compositeList);
 	}
 
-	public static <T extends Composite> void sortList(List<T> compositeList){
+	public <T extends Composite> void sortByComponents(List<T> compositeList){
 		compositeList.sort(new CompositeComparator());
 	}
+
+	public void sortSequence(Sequence sequence){
+		List<Lexeme> parts = getAllComponents(sequence);
+		sortWords(parts);
+		sequence.removeAll();
+		sequence.addComponents(parts);
+	}
+
 	//lexeme has only ONE word
-	public static void sortLexemeByWords(List<Lexeme> lexemes){
+	public void sortWords(List<Lexeme> lexemes){
 		final LinkedHashMap<Lexeme, Word> allWords = new LinkedHashMap<>();
+		//для сохранения лексем, состоящих только из знака и их последовательности в списке/предложении
 		final HashMap<Integer, Lexeme> allMarks = new HashMap<>();
 		lexemes.forEach(lexeme -> {
 			List<LexemePart> parts = getAllComponents(lexeme);
@@ -48,20 +57,19 @@ public class Sorter {
 		});
 	}
 
-	public static <T extends Composite> void sortBySymbol(List<T> compositeList, char symbol){
+	public <T extends Composite> void sortComponentsBySymbol(T composite, char symbol){
+		List<? extends Composite> compositeList = getAllComponents(composite);
+		sortBySymbol(compositeList, symbol);
+		composite.removeAll();
+		composite.addComponents(compositeList);
+	}
+
+	public <T extends Composite> void sortBySymbol(List<T> compositeList, char symbol){
 		LinkedHashMap<T, Long> counts = new LinkedHashMap<>();
 		compositeList.forEach(component -> {
 			counts.put(component, component.compose().chars().mapToObj(c -> (char)c).filter(c -> c.equals(symbol)).count());
 		});
 		compositeList.clear();
 		counts.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEachOrdered(entry -> compositeList.add(entry.getKey()));
-	}
-
-	public static <T extends Component> List<T> getAllComponents(Composite<T> composite){
-		List<T> components = new ArrayList<>();
-		for (int i = 0; i < composite.getCount(); i++){
-			components.add(composite.getComponent(i));
-		}
-		return components;
 	}
 }

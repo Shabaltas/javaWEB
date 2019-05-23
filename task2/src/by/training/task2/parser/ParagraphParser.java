@@ -6,15 +6,15 @@ import by.training.task2.composite.Component;
 import by.training.task2.composite.Composite;
 import by.training.task2.composite.Paragraph;
 import by.training.task2.composite.Sequence;
-import by.training.task2.constants.ComponentType;
+import by.training.task2.composite.constants.ComponentType;
 
 public class ParagraphParser extends CompositeParser {
 
 	//private String marks = "[\\.\\?!]";
 	//private String regex = "\\t|(\\s+)[A-Z].*[\\.\\?!]+\"?";
-	private String regBegin = "[A-Z\"]",
-					regInside = "[^\\.\\?!]",
-					regEnd = "[\\.\\?!\"]";
+	private final String regBegin = "[A-Z\"]",
+						  regInside = "[^\\.\\?!]",
+						  regEnd = "[\\.\\?!\"]";
 	//private String regex = "\\t[A-Z].*" + marks + "+"; 
 	//private String regex = "[A-Z].+?[\\.\\?!]+\"?";
 	public ParagraphParser(){

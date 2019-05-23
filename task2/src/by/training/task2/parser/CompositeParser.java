@@ -2,7 +2,7 @@ package by.training.task2.parser;
 
 import by.training.task2.composite.Component;
 import by.training.task2.composite.Composite;
-import by.training.task2.constants.ComponentType;
+import by.training.task2.composite.constants.ComponentType;
 
 public abstract class CompositeParser{
 

@@ -7,11 +7,11 @@ import by.training.task2.composite.Component;
 import by.training.task2.composite.Composite;
 import by.training.task2.composite.Lexeme;
 import by.training.task2.composite.Sequence;
-import by.training.task2.constants.ComponentType;
+import by.training.task2.composite.constants.ComponentType;
 
 public class SequenceParser extends CompositeParser{
 	
-	private String regex = "(\".*\")?\\S*\\s+"; 
+	private final String regex = "((\\S*(\".*\")\\S*)|(\\S+))\\s+";
 	//private String regex = "\\s+";
 	//private String regex = ".*(\".*\")?.?\\s+";
 	public SequenceParser(){
@@ -20,14 +20,6 @@ public class SequenceParser extends CompositeParser{
 	}
 	@Override
 	public void doParsing(Composite<? extends Component> composite, String text) {
-				/*
-				String[] lexemes = text.split(regex);
-				for(String lexemeText : lexemes){
-					Lexeme lexeme = new Lexeme();
-					parse(lexeme, lexemeText);
-					((Sequence)composite).addComponent(lexeme);
-				}
-				*/
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(text);
 		while (matcher.find()){					

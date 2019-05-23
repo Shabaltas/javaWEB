@@ -4,7 +4,7 @@ import by.training.task2.composite.Component;
 import by.training.task2.composite.Composite;
 import by.training.task2.composite.LexemePart;
 import by.training.task2.composite.Symbol;
-import by.training.task2.constants.ComponentType;
+import by.training.task2.composite.constants.ComponentType;
 
 public class LexemePartParser extends CompositeParser{
 
