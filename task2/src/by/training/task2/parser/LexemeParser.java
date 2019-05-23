@@ -13,8 +13,8 @@ import by.training.task2.constants.ComponentType;
 
 public class LexemeParser extends CompositeParser{
 	private String speachRegex = "\".*?\"";
-	private String wordRegex = "(([A-Za-z]|-)+)";
-	private String markRegex = "[!\\?\\.,;:]+";
+	private String wordRegex = "([A-Za-z]+-?[A-Za-z]*)";
+	private String markRegex = "[!\\?\\.,;:-]+";
 
 	public LexemeParser(){
 		super();
@@ -27,9 +27,9 @@ public class LexemeParser extends CompositeParser{
 		Matcher matcher = pattern.matcher(text);
 		while (matcher.find()){
 			subText= text.substring(matcher.start(), matcher.end());
-			LexemePart lexemePart = new LexemePart();
-			parse(lexemePart, subText);
-			((Lexeme)composite).addComponent(lexemePart);
+			Word speach = new Word();
+			parse(speach, subText);
+			((Lexeme)composite).addComponent(speach);
 		}
 		text = text.replaceAll(speachRegex, " ");
 		pattern = Pattern.compile(wordRegex);
@@ -49,6 +49,5 @@ public class LexemeParser extends CompositeParser{
 			parse(punctualMark, subText);
 			((Lexeme)composite).addComponent(punctualMark);
 		}
-		System.out.println("LEXEME " + composite.getComponents().size());	
 	}
 }

@@ -15,7 +15,6 @@ public abstract class CompositeParser{
 	}
 	
 	protected CompositeParser() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void parse(Composite<? extends Component> composite, String text){

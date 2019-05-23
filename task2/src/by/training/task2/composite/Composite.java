@@ -6,12 +6,13 @@ import java.util.List;
 public abstract class Composite<T extends Component> implements Component{
 	
 	protected List<T> components = new ArrayList<>();
+	protected int count;
 	
 	protected Composite() {
 	}
 	
-	public List<T> getComponents(){
-		return components;
+	public T getComponent(int index){
+		return components.get(index);
 	}
 
 	@Override
@@ -24,7 +25,7 @@ public abstract class Composite<T extends Component> implements Component{
 	}
 
 	public void addComponent(T component) {
-		components.add(component);		
+		components.add(component);
 	}
 
 	public void addComponents(List<T> listComponents) {
@@ -34,5 +35,12 @@ public abstract class Composite<T extends Component> implements Component{
 	public void removeComponent(T component) {
 		components.remove(component);
 	}
-	
+
+	public void removeAll(){
+		components.clear();
+	}
+
+	public int getCount() {
+		return components.size();
+	}
 }

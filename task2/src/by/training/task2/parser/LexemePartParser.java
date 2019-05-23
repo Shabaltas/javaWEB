@@ -21,6 +21,5 @@ public class LexemePartParser extends CompositeParser{
 			Symbol symbolChar = new Symbol(symbol.charAt(0));
 			((LexemePart)composite).addComponent(symbolChar);
 		}
-		System.out.println("LEXEMEPART " + composite.getComponents().size());	
 	}
 }

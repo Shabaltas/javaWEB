@@ -36,6 +36,5 @@ public class SequenceParser extends CompositeParser{
 			parse(lexeme, lexemeText);
 			((Sequence)composite).addComponent(lexeme);
 		}
-		System.out.println("SEQUENCE " + composite.getComponents().size());		
 	}
 }

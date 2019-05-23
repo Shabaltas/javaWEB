@@ -34,7 +34,5 @@ public class TextParser extends CompositeParser{
 			parse(paragraph, paragraphText);
 			((Text)composite).addComponent(paragraph);
 		}
-		System.out.println("TEXT " + composite.getComponents().size());	
 	}
-	
 }

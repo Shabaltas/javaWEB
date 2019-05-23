@@ -43,6 +43,5 @@ public class ParagraphParser extends CompositeParser {
 				i++;
 			}
 		}
-		System.out.println("PARAGRAPH " + composite.getComponents().size());	
 	}
 }
