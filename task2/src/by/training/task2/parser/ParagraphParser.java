@@ -7,8 +7,10 @@ import by.training.task2.composite.Composite;
 import by.training.task2.composite.Paragraph;
 import by.training.task2.composite.Sequence;
 import by.training.task2.composite.constants.ComponentType;
+import org.apache.log4j.Logger;
 
 public class ParagraphParser extends CompositeParser {
+	private static final Logger LOGGER = Logger.getLogger(ParagraphParser.class.getSimpleName());
 
 	//private String marks = "[\\.\\?!]";
 	//private String regex = "\\t|(\\s+)[A-Z].*[\\.\\?!]+\"?";
@@ -23,7 +25,7 @@ public class ParagraphParser extends CompositeParser {
 	}
 	
 	@Override
-	public void doParsing(Composite<? extends Component> composite, String text) {
+	protected void doParsing(Composite<? extends Component> composite, String text) {
 		String[] chars = text.chars().mapToObj(c -> String.valueOf((char)c)).toArray(String[]::new);
 		int i = 0;
 		while (i < chars.length){
@@ -36,6 +38,7 @@ public class ParagraphParser extends CompositeParser {
 					i++;
 				};
 				String sequenceText = text.substring(begin, i) + " ";
+				LOGGER.debug("SEQUENCE: " + sequenceText);
 				Sequence sequence = new Sequence();
 				parse(sequence, sequenceText);
 				((Paragraph)composite).addComponent(sequence);

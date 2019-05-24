@@ -3,6 +3,7 @@ package by.training.task2.sort;
 import java.util.*;
 
 import by.training.task2.composite.*;
+import org.apache.log4j.Logger;
 
 import static by.training.task2.utility.ComponentWorker.getAllComponents;
 

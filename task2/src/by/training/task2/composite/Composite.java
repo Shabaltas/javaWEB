@@ -1,7 +1,8 @@
 package by.training.task2.composite;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.*;
 
 public abstract class Composite<T extends Component> implements Component{
 	
@@ -42,5 +43,10 @@ public abstract class Composite<T extends Component> implements Component{
 
 	public int getCount() {
 		return components.size();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(components, count);
 	}
 }

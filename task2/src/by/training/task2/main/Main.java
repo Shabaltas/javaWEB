@@ -8,12 +8,15 @@ import java.util.List;
 
 import by.training.task2.composite.*;
 import by.training.task2.parser.*;
+import by.training.task2.reader.Reader;
 import by.training.task2.sort.ComponentSorter;
+import org.apache.log4j.Logger;
 
 import static by.training.task2.utility.ComponentWorker.getAllComponents;
 import static by.training.task2.utility.ComponentWorker.printComponent;
 
 public class Main {
+	private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
 
 	public Main() {
 	}
@@ -21,8 +24,7 @@ public class Main {
 	public static void main(String[] args) {
 		String dir = System.getProperty("user.dir") + "\\data\\dots.txt";
 		try{
-			String textStr = new String(Files.readAllBytes(Paths.get(dir)));
-			System.out.println(textStr);
+			String textStr = new Reader().readFileToString(dir);
 			TextParser textParser = new TextParser();
 			ParagraphParser paragraphParser = (ParagraphParser)textParser.setNext(new ParagraphParser());
 			SequenceParser sequenceParser = (SequenceParser)paragraphParser.setNext(new SequenceParser());
@@ -54,12 +56,8 @@ public class Main {
 			sorter.sortBySymbol(sequences, 'o');
 			System.out.println("\nSORTED SEQUENCES");
 			sequences.forEach(sequence -> System.out.print(sequence.compose()));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException e){
+			LOGGER.warn(e);
 		}
 	}
 }
