@@ -10,13 +10,14 @@ public enum ComponentType {
 	LEXEME_PART(LexemePart.class.getSimpleName()),
 	SYMBOL(Symbol.class.getSimpleName());
 	
-	private String title;
+	private String className;
 	
-	ComponentType(String title){
-		this.title = title;
+	ComponentType(String name){
+		this.className = name;
 	}
 	
-	public String getTitle(){
-		return this.title;
+	public String getClassName(){
+		return this.className;
 	}
+
 }

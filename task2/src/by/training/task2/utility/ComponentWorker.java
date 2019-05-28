@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentWorker {
+    private ComponentWorker(){}
+
     public static <T extends Component> List<T> getAllComponents(Composite<T> composite){
         List<T> components = new ArrayList<>();
         for (int i = 0; i < composite.getCount(); i++){
@@ -14,6 +16,7 @@ public class ComponentWorker {
         }
         return components;
     }
+
     public static void printComponent(Component component){
         System.out.println(component.compose());
     }

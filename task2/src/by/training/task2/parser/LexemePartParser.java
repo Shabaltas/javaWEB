@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 public class LexemePartParser extends CompositeParser{
 	private static final Logger LOGGER = Logger.getLogger(LexemePartParser.class.getSimpleName());
 
-	private String regex = "";
+	private static final String SPLIT_REGEX = "";
 
 	public LexemePartParser() {
 		super();
@@ -19,10 +19,12 @@ public class LexemePartParser extends CompositeParser{
 
 	@Override
 	protected void doParsing(Composite<? extends Component> composite, String text) {
-		String[] symbols = text.split(regex);
-		for(String symbol : symbols){
-			LOGGER.debug("SYMBOL: " + symbol);
-			((LexemePart)composite).addComponent(new Symbol(symbol.charAt(0)));
+		if (!"".equals(text)) {
+			String[] symbols = text.split(SPLIT_REGEX);
+			for (String symbol : symbols) {
+				LOGGER.debug("SYMBOL: " + symbol);
+				((LexemePart) composite).addComponent(new Symbol(symbol.charAt(0)));
+			}
 		}
 	}
 }

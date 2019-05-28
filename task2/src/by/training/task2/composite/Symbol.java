@@ -1,7 +1,5 @@
 package by.training.task2.composite;
 
-import org.apache.commons.collections4.CollectionUtils;
-
 import java.util.Objects;
 
 public class Symbol implements Component{
@@ -13,8 +11,8 @@ public class Symbol implements Component{
 	}
 
 	@Override
-	public String compose() {
-		return String.valueOf(symbol);
+	public StringBuilder compose() {
+		return new StringBuilder(String.valueOf(symbol));
 	}
 
 	@Override
@@ -28,5 +26,12 @@ public class Symbol implements Component{
 		if (!(o instanceof Symbol)) return false;
 		Symbol symbol1 = (Symbol) o;
 		return symbol == symbol1.symbol;
+	}
+
+	@Override
+	public String toString() {
+		return "Symbol{" +
+				"symbol=" + symbol +
+				'}';
 	}
 }

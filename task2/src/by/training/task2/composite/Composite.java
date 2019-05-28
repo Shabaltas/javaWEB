@@ -6,8 +6,7 @@ import java.util.*;
 
 public abstract class Composite<T extends Component> implements Component{
 	
-	protected List<T> components = new ArrayList<>();
-	protected int count;
+	List<T> components = new ArrayList<>();
 	
 	protected Composite() {
 	}
@@ -17,10 +16,10 @@ public abstract class Composite<T extends Component> implements Component{
 	}
 
 	@Override
-	public String compose() {
-		String result = "";
+	public StringBuilder compose() {
+		StringBuilder result = new StringBuilder();
 		for (Component component : components){
-			result += component.compose();
+			result.append(component.compose());
 		}
 		return result;
 	}
@@ -46,7 +45,22 @@ public abstract class Composite<T extends Component> implements Component{
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Composite)) return false;
+		Composite<?> composite = (Composite<?>) o;
+		return CollectionUtils.isEqualCollection(components, composite.components);
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hash(components, count);
+		return Objects.hash(components);
+	}
+
+	@Override
+	public String toString() {
+		return "Composite{" +
+				"components=" + components +
+				'}';
 	}
 }

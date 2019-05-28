@@ -1,6 +1,6 @@
 package by.training.task2.parser;
 
-import java.util.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
 public class LexemeParser extends CompositeParser{
 	private static final Logger LOGGER = Logger.getLogger(LexemeParser.class.getSimpleName());
 
-	private String speachRegex = "\".*?\"";
-	private String wordRegex = "([A-Za-z]+-?[A-Za-z]*)";
-	private String markRegex = "[!\\?\\.,;:-]+";
-	private String regex = "(" + speachRegex + ")|(" + wordRegex + ")|(" + markRegex + ")";
+	private static final String SPEACH_REGEX = "\".*?\"";
+	private static final String WORD_REGEX = "([A-Za-z]+-?[A-Za-z]*)";
+	private static final String MARK_REGEX = "[!\\?\\.,;:-]+";
+	private static final String REGEX = "(" + SPEACH_REGEX + ")|(" + WORD_REGEX + ")|(" + MARK_REGEX + ")";
 
 	public LexemeParser(){
 		super();
@@ -22,14 +22,13 @@ public class LexemeParser extends CompositeParser{
 	}
 	@Override
 	protected void doParsing(Composite<? extends Component> composite, String text) {
-		final HashMap<Integer, LexemePart> mapa = new HashMap<>();
 		String subText;
-		Pattern pattern = Pattern.compile(regex);
+		Pattern pattern = Pattern.compile(REGEX);
 		Matcher matcher = pattern.matcher(text);
 		while (matcher.find()){
 			subText = text.substring(matcher.start(), matcher.end());
 			LexemePart part;
-			if (Pattern.matches(markRegex, subText)){
+			if (Pattern.matches(MARK_REGEX, subText)){
 				LOGGER.debug("PUNCTUAL MARK: " + subText);
 				part = new PunctualMark();
 			}else {
@@ -37,12 +36,7 @@ public class LexemeParser extends CompositeParser{
 				part = new Word();
 			}
 			parse(part, subText);
-			mapa.put(matcher.start(), part);
+			((Lexeme)composite).addComponent(part);
 		}
-		mapa.entrySet()
-				.stream()
-				.sorted(Map.Entry.comparingByKey())
-				.forEachOrdered((entry) -> ((Lexeme)composite).addComponent(entry.getValue()));
-
 	}
 }

@@ -13,16 +13,15 @@ import org.apache.log4j.Logger;
 public class SequenceParser extends CompositeParser{
 	private static final Logger LOGGER = Logger.getLogger(SequenceParser.class.getSimpleName());
 
-	private final String regex = "((\\S*(\".*\")\\S*)|(\\S+))\\s+";
-	//private String regex = "\\s+";
-	//private String regex = ".*(\".*\")?.?\\s+";
+	private static final String REGEX = "((\\S*(\".*\")\\S*)|(\\S+))\\s+";
+
 	public SequenceParser(){
 		super();
 		componentType = ComponentType.SEQUENCE;
 	}
 	@Override
 	protected void doParsing(Composite<? extends Component> composite, String text) {
-		Pattern pattern = Pattern.compile(regex);
+		Pattern pattern = Pattern.compile(REGEX);
 		Matcher matcher = pattern.matcher(text);
 		while (matcher.find()){					
 			String lexemeText = text.substring(matcher.start(), matcher.end()-1);

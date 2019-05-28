@@ -9,9 +9,7 @@ import static by.training.task2.utility.ComponentWorker.getAllComponents;
 
 public class ComponentSorter {
 
-	public ComponentSorter() {
-	}
-
+	//передаем тот композит, чьи составляющие мы должны отсортировать по количеству их составляющих
 	public <T extends Composite> void sortComponents(T composite){
 		List<? extends Composite> compositeList = getAllComponents(composite);
 		sortByComponents(compositeList);
@@ -67,9 +65,7 @@ public class ComponentSorter {
 
 	public <T extends Composite> void sortBySymbol(List<T> compositeList, char symbol){
 		LinkedHashMap<T, Long> counts = new LinkedHashMap<>();
-		compositeList.forEach(component -> {
-			counts.put(component, component.compose().chars().mapToObj(c -> (char)c).filter(c -> c.equals(symbol)).count());
-		});
+		compositeList.forEach(component -> counts.put(component, component.compose().chars().mapToObj(c -> (char)c).filter(c -> c.equals(symbol)).count()));
 		compositeList.clear();
 		counts.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEachOrdered(entry -> compositeList.add(entry.getKey()));
 	}

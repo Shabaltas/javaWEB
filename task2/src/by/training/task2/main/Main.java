@@ -1,9 +1,6 @@
 package by.training.task2.main;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import by.training.task2.composite.*;
@@ -12,7 +9,6 @@ import by.training.task2.reader.Reader;
 import by.training.task2.sort.ComponentSorter;
 import org.apache.log4j.Logger;
 
-import static by.training.task2.utility.ComponentWorker.getAllComponents;
 import static by.training.task2.utility.ComponentWorker.printComponent;
 
 public class Main {
@@ -22,7 +18,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		String dir = System.getProperty("user.dir") + "\\data\\dots.txt";
+		String dir = System.getProperty("user.dir") + "\\data\\input.txt";
 		try{
 			String textStr = new Reader().readFileToString(dir);
 			TextParser textParser = new TextParser();
@@ -43,10 +39,13 @@ public class Main {
 			text.addComponents(paragraphs);*/
 			sorter.sortComponents(text);
 			printComponent(text);
+			sorter.sortComponentsBySymbol(text, 'a');
+			printComponent(text);
+
 			/*System.out.println("SORTED PARAGRAPHS");
 			paragraphs.forEach(paragraph -> System.out.print(paragraph.compose()));*/
 
-			Sequence seq = text.getComponent(1).getComponent(0);
+			/*Sequence seq = text.getComponent(1).getComponent(0);
 			List<Lexeme> lexemes = getAllComponents(seq);
 			sorter.sortWords(lexemes);
 			System.out.println("SORTED LEXEMES");
@@ -55,7 +54,7 @@ public class Main {
 			List<Lexeme> sequences = getAllComponents(text.getComponent(1).getComponent(0));
 			sorter.sortBySymbol(sequences, 'o');
 			System.out.println("\nSORTED SEQUENCES");
-			sequences.forEach(sequence -> System.out.print(sequence.compose()));
+			sequences.forEach(sequence -> System.out.print(sequence.compose()));*/
 		} catch (IOException e){
 			LOGGER.warn(e);
 		}

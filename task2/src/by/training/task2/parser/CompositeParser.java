@@ -8,8 +8,8 @@ import org.apache.log4j.Logger;
 public abstract class CompositeParser{
 	private static final Logger LOGGER = Logger.getLogger(CompositeParser.class.getSimpleName());
 
-	protected ComponentType componentType;
-	protected CompositeParser next;
+	ComponentType componentType;
+	private CompositeParser next;
 
 	public CompositeParser setNext(CompositeParser parser){
 		next = parser;
@@ -20,7 +20,7 @@ public abstract class CompositeParser{
 	}
 	
 	public void parse(Composite<? extends Component> composite, String text){
-		if (composite.getClass().getSimpleName().equals(componentType.getTitle())){
+		if (composite.getClass().getSimpleName().equals(componentType.getClassName())){
 			LOGGER.debug("DO PARSE");
 			doParsing(composite, text);			
 		}else if (next != null){

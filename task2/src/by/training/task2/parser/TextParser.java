@@ -5,11 +5,10 @@ import by.training.task2.composite.constants.ComponentType;
 import org.apache.log4j.Logger;
 
 public class TextParser extends CompositeParser{
-	private static final Logger LOGGER = Logger.getLogger(Sequence.class.getSimpleName());
+	private static final Logger LOGGER = Logger.getLogger(Text.class.getSimpleName());
 
-	//private String regex = ".+?\\r\\n\\t";
-	private final String regex = "\\r\\n\\t";
-	private final String toReplace  = "[\\r\\n\\s]+";
+	private static final String SPLIT_REGEX = "\\r\\n\\t";
+	private static final String TOREPLACE  = "[\\r\\n\\s]+";
 
 	public TextParser(){
 		super();
@@ -18,13 +17,15 @@ public class TextParser extends CompositeParser{
 
 	@Override
 	protected void doParsing(Composite<? extends Component> composite, String text) {
-		String[] paragraphs = text.split(regex);
-		for (String paragraphText : paragraphs){
-			LOGGER.debug("PARAGRAPH: " + paragraphText);
-			paragraphText = paragraphText.replaceAll(toReplace, " ");
-			Paragraph paragraph = new Paragraph();
-			parse(paragraph, paragraphText);
-			((Text)composite).addComponent(paragraph);
+		if (!"".equals(text)) {
+			String[] paragraphs = text.split(SPLIT_REGEX);
+			for (String paragraphText : paragraphs) {
+				LOGGER.debug("PARAGRAPH: " + paragraphText);
+				paragraphText = paragraphText.replaceAll(TOREPLACE, " ");
+				Paragraph paragraph = new Paragraph();
+				parse(paragraph, paragraphText);
+				((Text) composite).addComponent(paragraph);
+			}
 		}
 	}
 }

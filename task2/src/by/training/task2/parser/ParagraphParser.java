@@ -12,13 +12,10 @@ import org.apache.log4j.Logger;
 public class ParagraphParser extends CompositeParser {
 	private static final Logger LOGGER = Logger.getLogger(ParagraphParser.class.getSimpleName());
 
-	//private String marks = "[\\.\\?!]";
-	//private String regex = "\\t|(\\s+)[A-Z].*[\\.\\?!]+\"?";
-	private final String regBegin = "[A-Z\"]",
-						  regInside = "[^\\.\\?!]",
-						  regEnd = "[\\.\\?!\"]";
-	//private String regex = "\\t[A-Z].*" + marks + "+"; 
-	//private String regex = "[A-Z].+?[\\.\\?!]+\"?";
+	private static final String BEGIN_REGEX = "[A-Z\"]";
+	private static final String INSIDE_REGEX = "[^\\.\\?!]";
+	private static final String END_REGEX = "[\\.\\?!\"]";
+
 	public ParagraphParser(){
 		super();
 		componentType = ComponentType.PARAGRAPH;
@@ -29,12 +26,12 @@ public class ParagraphParser extends CompositeParser {
 		String[] chars = text.chars().mapToObj(c -> String.valueOf((char)c)).toArray(String[]::new);
 		int i = 0;
 		while (i < chars.length){
-			if (Pattern.matches(regBegin, chars[i])){
+			if (Pattern.matches(BEGIN_REGEX, chars[i])){
 				int begin = i;
-				while (i < chars.length && Pattern.matches(regInside, chars[i])){
+				while (i < chars.length && Pattern.matches(INSIDE_REGEX, chars[i])){
 					i++;
 				}
-				while (i < chars.length && Pattern.matches(regEnd, chars[i])){
+				while (i < chars.length && Pattern.matches(END_REGEX, chars[i])){
 					i++;
 				};
 				String sequenceText = text.substring(begin, i) + " ";
