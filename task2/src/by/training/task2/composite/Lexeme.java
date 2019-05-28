@@ -8,7 +8,7 @@ public class Lexeme extends Composite<LexemePart>{
 	
 	@Override
 	public StringBuilder compose(){
-		StringBuilder result = new StringBuilder(" ");
+		StringBuilder result = new StringBuilder();
 		for (Component component : components){
 			result.append(component.compose());
 		}
