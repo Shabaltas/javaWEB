@@ -35,13 +35,13 @@ public class CarValidatorTest {
 
     @Test(dataProvider = "wrongPassengerCar")
     public void validatePassengerCarExcepTest (List<String> params){
-        assertThrows(InvalidCarDataException.class, () -> CarValidator.validatePassengerCar(params));
+        assertThrows(InvalidCarDataException.class, () -> new CarValidator().validatePassengerCar(params));
     }
 
     @Test(dataProvider = "rightPassengerCar")
     public void validatePassengerCarTest(List<String> params){
         try {
-            CarValidator.validatePassengerCar(params);
+            new CarValidator().validatePassengerCar(params);
         } catch (InvalidCarDataException e) {
             fail();
         }
@@ -75,13 +75,13 @@ public class CarValidatorTest {
 
     @Test(dataProvider = "wrongAutotruck")
     public void validateAutotruckExepTest (List<String> params){
-        assertThrows(InvalidCarDataException.class, () -> CarValidator.validateAutotruck(params));
+        assertThrows(InvalidCarDataException.class, () -> new CarValidator().validateAutotruck(params));
     }
 
     @Test(dataProvider = "rightAutotruck")
     public void validateAutotruckTest(List<String> params){
         try {
-            CarValidator.validateAutotruck(params);
+            new CarValidator().validateAutotruck(params);
         } catch (InvalidCarDataException e) {
             fail();
         }
@@ -115,13 +115,13 @@ public class CarValidatorTest {
 
     @Test(dataProvider = "wrongCargoPassenger")
     public void validateCargoPassengerExepTest (List<String> params){
-        assertThrows(InvalidCarDataException.class, () -> CarValidator.validateCargoPassenger(params));
+        assertThrows(InvalidCarDataException.class, () -> new CarValidator().validateCargoPassenger(params));
     }
 
     @Test(dataProvider = "rightCargoPassenger")
     public void validateCargoPassengerTest(List<String> params){
         try {
-            CarValidator.validateCargoPassenger(params);
+            new CarValidator().validateCargoPassenger(params);
         } catch (InvalidCarDataException e) {
             fail();
         }

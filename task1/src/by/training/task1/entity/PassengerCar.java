@@ -12,42 +12,87 @@ import java.util.Objects;
  *  @version 1.0
  *  @since   2019-05-12
  */
-public class PassengerCar extends Car {
+public final class PassengerCar extends Car {
     /**
-     * Private constructor cause we use Builder pattern to create {@code PassengerCar}
+     * Private constructor
+     * because we use Builder pattern to create {@code PassengerCar}.
      */
-    private PassengerCar(){}
+    private PassengerCar() { }
     /**
-     * All possible types of a passenger car body
+     * All possible types of a passenger car body.
      */
-    public enum CarBodyType{
+    public enum CarBodyType {
+        /**
+         * Type of body - sedan.
+         */
         SEDAN,
+        /**
+         * Type of body - universal.
+         */
         UNIVERSAL,
+        /**
+         * Type of body - hatchback.
+         */
         HATCHBACK,
+        /**
+         * Type of body - coupe.
+         */
         COUPE,
+        /**
+         * Type of body - limousine.
+         */
         LIMOUSINE,
+        /**
+         * Type of body - cabriolet.
+         */
         CABRIOLET,
+        /**
+         * Type of body - targa.
+         */
         TARGA,
     }
 
     /**
-     * All possible classes of a passenger car
+     * All possible classes of a passenger car.
      */
-    public enum ClassCar{
-        A, B, C, D, E, F
+    public enum ClassCar {
+        /**
+         * Car class 'A'.
+         */
+        A,
+        /**
+         * Car class 'B'.
+         */
+        B,
+        /**
+         * Car class 'C'.
+         */
+        C,
+        /**
+         * Car class 'D'.
+         */
+        D,
+        /**
+         * Car class 'E'.
+         */
+        E,
+        /**
+         * Car class 'F'.
+         */
+        F
     }
 
     /**
-     * The class of the {@code PassengerCar}
+     * The class of the {@code PassengerCar}.
      */
     private ClassCar classCar;
     /**
-     * The type of the {@code PassengerCar} body
+     * The type of the {@code PassengerCar} body.
      */
     private CarBodyType bodyType;
 
     /**
-     * Returns the class of this {@code PassengerCar}
+     * Returns the class of this {@code PassengerCar}.
      * @return the class of this car
      */
     public ClassCar getClassCar() {
@@ -55,15 +100,15 @@ public class PassengerCar extends Car {
     }
 
     /**
-     * Sets the class of this {@code PassengerCar}
-     * @param classCar new class of this car
+     * Sets the class of this {@code PassengerCar}.
+     * @param carClass new class of this car
      */
-    public void setClassCar(ClassCar classCar) {
-        this.classCar = classCar;
+    public void setClassCar(final ClassCar carClass) {
+        this.classCar = carClass;
     }
 
     /**
-     * Returns the type of this {@code PassengerCar} body
+     * Returns the type of this {@code PassengerCar} body.
      * @return the type of this car body
      */
     public CarBodyType getBodyType() {
@@ -71,11 +116,11 @@ public class PassengerCar extends Car {
     }
 
     /**
-     * Sets the type of this {@code PassengerCar} body
-     * @param bodyType new type of this car body
+     * Sets the type of this {@code PassengerCar} body.
+     * @param type new type of this car body
      */
-    public void setBodyType(CarBodyType bodyType) {
-        this.bodyType = bodyType;
+    public void setBodyType(final CarBodyType type) {
+        this.bodyType = type;
     }
 
     /**
@@ -90,22 +135,27 @@ public class PassengerCar extends Car {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PassengerCar)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PassengerCar)) {
+            return false;
+        }
         PassengerCar that = (PassengerCar) o;
-        return  maxCarrying == that.maxCarrying &&
-                countPassengers == that.countPassengers &&
-                cost.compareTo(that.cost) == 0 &&
-                classCar == that.classCar &&
-                bodyType == that.bodyType;
+        return  getMaxCarrying() == that.getMaxCarrying()
+                && getCountPassengers() == that.getCountPassengers()
+                && getCost().compareTo(that.getCost()) == 0
+                && classCar == that.classCar
+                && bodyType == that.bodyType;
     }
     /**
      * Returns the hashcode for this {@code PassengerCar}.
-     * @return      a hash code for this car.
+     * @return a hash code for this car.
      */
     @Override
     public int hashCode() {
-        return Objects.hash( maxCarrying, countPassengers, cost, classCar, bodyType);
+        return Objects
+                .hash(getMaxCarrying(), getCountPassengers(), getCost(), classCar, bodyType);
     }
     /**
      * Returns a string representation of this {@code PassengerCar}.
@@ -115,14 +165,14 @@ public class PassengerCar extends Car {
      */
     @Override
     public String toString() {
-        return "PassengerCar{" +
-                "id=" + id +
-                ", classCar=" + classCar +
-                ", bodyType=" + bodyType +
-                ", countPassengers=" + countPassengers +
-                ", maxCarrying=" + maxCarrying +
-                ", cost=" + cost +
-                '}';
+        return "PassengerCar{"
+                + "id=" + getId()
+                + ", classCar=" + classCar
+                + ", bodyType=" + bodyType
+                + ", countPassengers=" + getCountPassengers()
+                + ", maxCarrying=" + getMaxCarrying()
+                + ", cost=" + getCost()
+                + '}';
     }
 
     /**
@@ -130,9 +180,9 @@ public class PassengerCar extends Car {
      * Provides a flexible solution to create various object clearer
      * without constructor overloading.
      */
-    public static class Builder{
+    public static class Builder {
         /**
-         * {@code PassengerCar} that will be created
+         * {@code PassengerCar} that will be created.
          */
         private PassengerCar newCar;
 
@@ -140,7 +190,7 @@ public class PassengerCar extends Car {
          * Constructs and initializes a new car with
          * undefined fields.
          */
-        public Builder(){
+        public Builder() {
             newCar = new PassengerCar();
         }
 
@@ -149,8 +199,8 @@ public class PassengerCar extends Car {
          * @param id uniq identifier
          * @return this {@code Builder}
          */
-        public Builder withId(int id){
-            newCar.id = id;
+        public Builder withId(final int id) {
+            newCar.setId(id);
             return this;
         }
         /**
@@ -158,8 +208,8 @@ public class PassengerCar extends Car {
          * @param countPassengers maximum passengers capacity
          * @return this {@code Builder}
          */
-        public Builder withCountPassengers(int countPassengers){
-            newCar.countPassengers = countPassengers;
+        public Builder withCountPassengers(final int countPassengers) {
+            newCar.setCountPassengers(countPassengers);
             return this;
         }
         /**
@@ -167,8 +217,8 @@ public class PassengerCar extends Car {
          * @param maxCarrying maximum load capacity
          * @return this {@code Builder}
          */
-        public Builder withMaxCarrying(int maxCarrying){
-            newCar.maxCarrying = maxCarrying;
+        public Builder withMaxCarrying(final int maxCarrying) {
+            newCar.setMaxCarrying(maxCarrying);
             return this;
         }
         /**
@@ -176,8 +226,8 @@ public class PassengerCar extends Car {
          * @param cost the cost
          * @return this {@code Builder}
          */
-        public Builder withCost(BigDecimal cost){
-            newCar.cost = cost;
+        public Builder withCost(final BigDecimal cost) {
+            newCar.setCost(cost);
             return this;
         }
         /**
@@ -185,7 +235,7 @@ public class PassengerCar extends Car {
          * @param classCar the class
          * @return this {@code Builder}
          */
-        public Builder withClassCar(ClassCar classCar){
+        public Builder withClassCar(final ClassCar classCar) {
             newCar.classCar = classCar;
             return this;
         }
@@ -194,15 +244,15 @@ public class PassengerCar extends Car {
          * @param type the body type
          * @return this {@code Builder}
          */
-        public Builder withBodyType(CarBodyType type){
+        public Builder withBodyType(final CarBodyType type) {
             newCar.bodyType = type;
             return this;
         }
         /**
-         * Returns created new car
+         * Returns created new car.
          * @return new {@code PassengerCar}
          */
-        public PassengerCar build(){
+        public PassengerCar build() {
             return newCar;
         }
     }

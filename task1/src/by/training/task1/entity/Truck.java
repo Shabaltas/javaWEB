@@ -11,20 +11,35 @@ package by.training.task1.entity;
  */
 public abstract class Truck extends Car {
     /**
-     * All possible types of cargo
+     * All possible types of cargo.
      */
-    public enum CargoType{
+    public enum CargoType {
+        /**
+         * Type of cargo - overall.
+         */
         OVERALL,
+        /**
+         * Type of cargo - loose.
+         */
         LOOSE,
+        /**
+         * Type of cargo - liquid.
+         */
         LIQUID,
+        /**
+         * Type of cargo - special.
+         */
         SPECIAL,
+        /**
+         * Type of cargo - dangerous.
+         */
         DANGEROUS
     }
 
     /**
-     * Type of cargo
+     * Type of cargo.
      */
-    protected CargoType cargoType;
+    private CargoType cargoType;
 
     /**
      * @return the type of cargo of this truck
@@ -34,11 +49,11 @@ public abstract class Truck extends Car {
     }
 
     /**
-     * Sets the type of cargo of this truck
-     * @param cargoType new type of cargo
+     * Sets the type of cargo of this truck.
+     * @param type new type of cargo
      */
-    public void setCargoType(CargoType cargoType) {
-        this.cargoType = cargoType;
+    public void setCargoType(final CargoType type) {
+        this.cargoType = type;
     }
 }
 

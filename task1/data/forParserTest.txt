@@ -3,3 +3,6 @@
 
 Autotruck 7	 9loose 2 	minruckbus
 CargoPassenger 6 8 17500 overall pickup
+дарпдворпдо
+
+Passenger 3

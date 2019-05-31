@@ -16,46 +16,50 @@ import java.util.List;
  */
 public interface Repository<T> {
     /**
-     * Finds the objects in {@code Repository} that satisfy the search specification.
+     * Finds the objects in {@code Repository}
+     * that satisfy the search specification.
      * @param spec specification that define search options.
      * @return the {@code List} of satisfying objects.
      */
     List<T> find(Specification<T> spec);
 
     /**
-     * Sorts the objects in {@code Repository} according to a certain {@code Comparator}
+     * Sorts the objects in {@code Repository}
+     * according to a certain {@code Comparator}.
      * @param comparator defines the sorting options.
      */
     void sort(Comparator<T> comparator);
 
     /**
-     * Add the object in {@code Repository}
+     * Add the object in {@code Repository}.
      * @param object object to add
+     * @throws InvalidCarDataException in case invalid input data
      */
     void add(T object) throws InvalidCarDataException;
 
     /**
-     * Remove the object from {@code Repository}
+     * Remove the object from {@code Repository}.
      * @param object object to remove
      */
     void remove(T object);
 
     /**
-     * Find the objects in {@code Repository} that satisfy the search specification
-     * and remove them.
+     * Remove the objects in {@code Repository}
+     * that satisfy the search specification.
      * @param spec specification that define search options
      */
     void remove(Specification<T> spec);
 
     /**
-     * Update the object in {@code Repository}
+     * Update the object in {@code Repository}.
      * @param object object to update
      */
     void update(T object);
 
     /**
      * Returns an object from {@code Repository} with that {@code index}.
+     * @param index index to find the element
      * @return an object with that index
      */
-    T get(int index);
+    T take(int index);
 }

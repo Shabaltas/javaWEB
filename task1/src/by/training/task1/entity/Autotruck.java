@@ -11,17 +11,27 @@ import java.util.Objects;
  *  @version 1.0
  *  @since   2019-05-12
  */
-public class Autotruck extends Truck {
+public final class Autotruck extends Truck {
     /**
-     * Private constructor cause we use Builder pattern to create {@code Autotruck}
+     * Private constructor cause we use Builder pattern
+     * to create {@code Autotruck}.
      */
-    private Autotruck(){}
+    private Autotruck() { }
     /**
-     * All possible types of an autotruck body
+     * All possible types of an autotruck body.
      */
-    public enum AutotruckType{
+    public enum AutotruckType {
+        /**
+         * "Container" body type.
+          */
         CONTAINER,
+        /**
+         * "Refrigerator" body type.
+         */
         REFRIGERATOR,
+        /**
+         * "Minitruckbus" body type.
+         */
         MINITRUCKBUS
     }
     /**
@@ -29,42 +39,43 @@ public class Autotruck extends Truck {
      */
     private byte countAxles;
     /**
-     * The type of the {@code Autotruck} body
+     * The type of the {@code Autotruck} body.
      */
     private AutotruckType bodyType;
     /**
-     * Returns the count of the axles of this {@code Autotruck}
-     * @return the count of the axles of this car
+     * Returns the count of the axles of this {@code Autotruck}.
+     * @return the count of the axles of this car.
      */
     public byte getCountAxles() {
         return countAxles;
     }
     /**
-     * Sets the count of the axles of this {@code Autotruck}
-     * @param countAxles count of the axles of this car
+     * Sets the count of the axles of this {@code Autotruck}.
+     * @param axles count of the axles of this car.
      */
-    public void setCountAxles(byte countAxles) {
-        this.countAxles = countAxles;
+    public void setCountAxles(final byte axles) {
+        this.countAxles = axles;
     }
     /**
-     * Returns the type of this {@code Autotruck} body
+     * Returns the type of this {@code Autotruck} body.
      * @return the type of this car body
      */
     public AutotruckType getBodyType() {
         return bodyType;
     }
     /**
-     * Sets the type of this {@code Autotruck} body
-     * @param bodyType new type of this car body
+     * Sets the type of this {@code Autotruck} body.
+     * @param type new type of this car body
      */
-    public void setBodyType(AutotruckType bodyType) {
-        this.bodyType = bodyType;
+    public void setBodyType(final AutotruckType type) {
+        this.bodyType = type;
     }
     /**
      * Determines whether or not two cars are equal. Two instances of
      * {@code Autotruck} are equal if the values of their
-     * {@code countPassengers}, {@code maxCarrying},{@code cost},{@code cargoType},
-     * {@code countAxles} and {@code bodyType} member fields are the same.
+     * {@code countPassengers}, {@code maxCarrying},{@code cost},
+     * {@code cargoType}, {@code countAxles} and
+     * {@code bodyType} member fields are the same.
      * @param o an object to be compared with this {@code Autotruck}
      * @return {@code true} if the object to be compared is
      *         an instance of {@code Autotruck} and has
@@ -72,23 +83,28 @@ public class Autotruck extends Truck {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Autotruck)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Autotruck)) {
+            return false;
+        }
         Autotruck that = (Autotruck) o;
-        return  maxCarrying == that.maxCarrying &&
-                countPassengers == that.countPassengers &&
-                cost.compareTo(that.cost) == 0 &&
-                cargoType == that.cargoType &&
-                countAxles == that.countAxles &&
-                bodyType == that.bodyType;
+        return  getMaxCarrying() == that.getMaxCarrying()
+                && getCountPassengers() == that.getCountPassengers()
+                && getCost().compareTo(that.getCost()) == 0
+                && getCargoType() == that.getCargoType()
+                && countAxles == that.countAxles
+                && bodyType == that.bodyType;
     }
     /**
      * Returns the hashcode for this {@code Autotruck}.
-     * @return      a hash code for this car.
+     * @return a hash code for this car.
      */
     @Override
     public int hashCode() {
-        return Objects.hash(maxCarrying, countPassengers, cost, countAxles, bodyType);
+        return Objects
+                .hash(getMaxCarrying(), getCountPassengers(), getCost(), getCargoType(), countAxles, bodyType);
     }
     /**
      * Returns a string representation of this {@code Autotruck}.
@@ -98,31 +114,31 @@ public class Autotruck extends Truck {
      */
     @Override
     public String toString() {
-        return "Autotruck{" +
-                "id=" + id +
-                ", countAxles=" + countAxles +
-                ", bodyType=" + bodyType +
-                ", cargoType=" + cargoType +
-                ", countPassengers=" + countPassengers +
-                ", maxCarrying=" + maxCarrying +
-                ", cost=" + cost +
-                '}';
+        return "Autotruck{"
+                + "id=" + getId()
+                + ", countAxles=" + countAxles
+                + ", bodyType=" + bodyType
+                + ", cargoType=" + getCargoType()
+                + ", countPassengers=" + getCountPassengers()
+                + ", maxCarrying=" + getMaxCarrying()
+                + ", cost=" + getCost()
+                + '}';
     }
     /**
      * Builder pattern implementation.
      * Provides a flexible solution to create various object clearer
      * without constructor overloading.
      */
-    public static class Builder{
+    public static class Builder {
         /**
-         * {@code Autotruck} that will be created
+         * {@code Autotruck} that will be created.
          */
         private Autotruck newCar;
         /**
          * Constructs and initializes a new car with
          * undefined fields.
          */
-        public Builder(){
+        public Builder() {
             newCar = new Autotruck();
         }
         /**
@@ -130,8 +146,8 @@ public class Autotruck extends Truck {
          * @param id uniq identifier
          * @return this {@code Builder}
          */
-        public Builder withId(int id){
-            newCar.id = id;
+        public Builder withId(final int id) {
+            newCar.setId(id);
             return this;
         }
         /**
@@ -139,7 +155,7 @@ public class Autotruck extends Truck {
          * @param type the type
          * @return this {@code Builder}
          */
-        public Builder withBodyType(AutotruckType type){
+        public Builder withBodyType(final AutotruckType type) {
             newCar.bodyType = type;
             return this;
         }
@@ -148,7 +164,7 @@ public class Autotruck extends Truck {
          * @param count the count of the axles
          * @return this {@code Builder}
          */
-        public Builder withCountAxles(byte count){
+        public Builder withCountAxles(final byte count) {
             newCar.countAxles = count;
             return this;
         }
@@ -157,8 +173,8 @@ public class Autotruck extends Truck {
          * @param type the cargo type
          * @return this {@code Builder}
          */
-        public Builder withCargoType(CargoType type){
-            newCar.cargoType = type;
+        public Builder withCargoType(final CargoType type) {
+            newCar.setCargoType(type);
             return this;
         }
         /**
@@ -166,8 +182,8 @@ public class Autotruck extends Truck {
          * @param countPassengers maximum passengers capacity
          * @return this {@code Builder}
          */
-        public Builder withCountPassengers(int countPassengers){
-            newCar.countPassengers = countPassengers;
+        public Builder withCountPassengers(final int countPassengers) {
+            newCar.setCountPassengers(countPassengers);
             return this;
         }
         /**
@@ -175,8 +191,8 @@ public class Autotruck extends Truck {
          * @param maxCarrying maximum load capacity
          * @return this {@code Builder}
          */
-        public Builder withMaxCarrying(int maxCarrying){
-            newCar.maxCarrying = maxCarrying;
+        public Builder withMaxCarrying(final int maxCarrying) {
+            newCar.setMaxCarrying(maxCarrying);
             return this;
         }
         /**
@@ -184,15 +200,15 @@ public class Autotruck extends Truck {
          * @param cost the cost
          * @return this {@code Builder}
          */
-        public Builder withCost(BigDecimal cost){
-            newCar.cost = cost;
+        public Builder withCost(final BigDecimal cost) {
+            newCar.setCost(cost);
             return this;
         }
         /**
-         * Returns created new car
+         * Returns created new car.
          * @return new {@code CargoPassengerCar}
          */
-        public Autotruck build(){
+        public Autotruck build() {
             return newCar;
         }
     }

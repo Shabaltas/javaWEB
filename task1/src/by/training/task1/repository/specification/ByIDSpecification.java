@@ -10,19 +10,21 @@ import by.training.task1.entity.Car;
  */
 public class ByIDSpecification implements Specification<Car> {
     /**
-     * desired identifier
+     * Desired identifier.
      */
     private int id;
     /**
-     * Constructs new {@code ByIDSpecification} and initialize desired identifier {@code id}.
+     * Constructs new {@code ByIDSpecification}
+     * and initialize desired identifier {@code id}.
      *
-     * @param id desired identifier
+     * @param identifier desired identifier
      */
-    public ByIDSpecification(int id){
-        this.id = id;
+    public ByIDSpecification(final int identifier) {
+        this.id = identifier;
     }
     /**
-     * Define whether a domain entity satisfy this {@code ByIDSpecification} or not.
+     * Define whether a domain entity satisfy
+     * this {@code ByIDSpecification} or not.
      * @param car a domain entity
      * @return {@code true} if the {@code Car.id} equal to desired identifier,
      *          otherwise {@code false}

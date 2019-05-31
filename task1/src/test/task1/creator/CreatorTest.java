@@ -16,7 +16,7 @@ import static org.testng.Assert.assertEquals;
 public class CreatorTest {
 
     @DataProvider(name = "cars")
-    public static Object[][] createData(){
+    public static Object[][] createData() {
         return new Object[][]{
                 {new ArrayList<>(Arrays.asList("PASSENGER", "1", "4", "2", "12000", "A", "SEDAN")),
                         Optional.of(new PassengerCar.Builder()
@@ -39,7 +39,7 @@ public class CreatorTest {
                                 .build())},
                 {new ArrayList<>(Arrays.asList("AUTOTRUCK", "3", "7", "9LOOSE", "2", "MINRUCKBUS")),
                         Optional.empty()},
-                { new ArrayList<>(Arrays.asList("CARGOPASSENGER", "4", "6", "8", "17500", "OVERALL", "PICKUP")),
+                {new ArrayList<>(Arrays.asList("CARGOPASSENGER", "4", "6", "8", "17500", "OVERALL", "PICKUP")),
                         Optional.of(new CargoPassengerCar.Builder()
                                 .withId(4)
                                 .withCountPassengers(6)
@@ -51,7 +51,7 @@ public class CreatorTest {
         };
     }
     @Test(dataProvider = "cars")
-    public void createTest(List<String> params, Optional<Car> expected){
-        assertEquals(Creator.create(params), expected);
+    public void createTest(List<String> params, Optional<Car> expected) {
+        assertEquals(new Creator().create(params), expected);
     }
 }

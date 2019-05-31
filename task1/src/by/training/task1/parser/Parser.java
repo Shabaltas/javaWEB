@@ -21,7 +21,7 @@ public class Parser {
      * @return {@code List} of parsed arrays of {@code String}
      * @throws IOException if an I/O error occurs
      */
-    public static List<ArrayList<String>> parseFromBuf(String filename) throws IOException {
+    public List<ArrayList<String>> parseFromBuf(String filename) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
         List<ArrayList<String>> res = new ArrayList<>();
         String line;

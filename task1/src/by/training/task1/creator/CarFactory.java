@@ -5,7 +5,8 @@ import by.training.task1.entity.Car;
 import java.util.List;
 
 /**
- * Interface that declares the factory method that returns new {@code Car} objects.
+ * Interface that declares the factory method
+ * that returns new {@code Car} objects.
  *
  *  @author  Angelina Shabaltas
  *  @version 1.0

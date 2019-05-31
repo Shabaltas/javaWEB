@@ -16,7 +16,7 @@ import java.util.List;
  *  @version 1.0
  *  @since   2019-05-12
  */
-public class CarRepository implements Repository<Car> {
+public final class CarRepository implements Repository<Car> {
     /**
      * The {@code List} of {@code Car} objects.
      */
@@ -28,19 +28,20 @@ public class CarRepository implements Repository<Car> {
     /**
      * Private constructor to create the only {@code CarRepository}.
      */
-    private CarRepository(){}
+    private CarRepository() { }
     /**
-     * Static method to get the only {@code CarRepository}.
+     * Static method to take the only {@code CarRepository}.
      * @return the only instance of {@code CarRepository}
      */
-    public static CarRepository getInstance(){
-        if (instance == null){
+    public static CarRepository getInstance() {
+        if (instance == null) {
             instance = new CarRepository();
         }
         return instance;
     }
     /**
-     * Finds the {@code Car} in this {@code CarRepository} that satisfy the search specification.
+     * Finds the {@code Car} in this {@code CarRepository}
+     * that satisfy the search specification.
      * @param spec specification that define search options.
      * @return the {@code List} of satisfying objects.
      */
@@ -48,13 +49,15 @@ public class CarRepository implements Repository<Car> {
     public List<Car> find(Specification<Car> spec) {
         List<Car> result = new ArrayList<>();
         cars.forEach(car -> {
-            if (spec.match(car))
+            if (spec.match(car)) {
                 result.add(car);
+            }
         });
         return result;
     }
     /**
-     * Sorts the {@code Car} objects in this {@code CarRepository} according to a certain {@code Comparator}
+     * Sorts the {@code Car} objects in this {@code CarRepository}
+     * according to a certain {@code Comparator}.
      * @param comparator defines the sorting options.
      */
     @Override
@@ -62,19 +65,19 @@ public class CarRepository implements Repository<Car> {
         cars.sort(comparator);
     }
     /**
-     * Add the {@code Car} in this {@code CarRepository}
+     * Add the {@code Car} in this {@code CarRepository}.
      * @param object {@code Car} to add
      */
     @Override
-    public void add(Car object) throws InvalidCarDataException{
+    public void add(final Car object) throws InvalidCarDataException {
         if (find(new ByIDSpecification(object.getId())).isEmpty()) {
             cars.add(object);
-        }else{
+        } else {
             throw new InvalidCarDataException("Duplicate id " + object.getId());
         }
     }
     /**
-     * Remove the {@code Car} from this {@code CarRepository}
+     * Remove the {@code Car} from this {@code CarRepository}.
      * @param object {@code Car} to remove
      */
     @Override
@@ -82,7 +85,8 @@ public class CarRepository implements Repository<Car> {
         cars.remove(object);
     }
     /**
-     * Find the {@code Car} objects in this {@code CarRepository} that satisfy the search specification
+     * Find the {@code Car} objects in this {@code CarRepository}
+     * that satisfy the search specification
      * and remove them.
      * @param spec specification that define search options
      */
@@ -98,13 +102,14 @@ public class CarRepository implements Repository<Car> {
         }
     }
     /**
-     * Update the {@code Car} in this {@code CarRepository} with identical identifier
+     * Update the {@code Car} in this {@code CarRepository}
+     * with identical identifier.
      * @param object {@code Car} to update
      */
     @Override
-    public void update(Car object) {
-        for (int i = 0; i < cars.size(); i++){
-            if (cars.get(i).getId() == object.getId()){
+    public void update(final Car object) {
+        for (int i = 0; i < cars.size(); i++) {
+            if (cars.get(i).getId() == object.getId()) {
                 cars.remove(i);
                 cars.add(i, object);
             }
@@ -115,7 +120,7 @@ public class CarRepository implements Repository<Car> {
      * @return a {@code Car} with that index
      */
     @Override
-    public Car get(int index){
+    public Car take(final int index) {
         return cars.get(index);
     }
 
@@ -123,7 +128,7 @@ public class CarRepository implements Repository<Car> {
      * Returns the number of entities in the repository.
      * @return the number of entities in the repository
      */
-    public int getCount(){
+    public int getCount() {
         return cars.size();
     }
 }

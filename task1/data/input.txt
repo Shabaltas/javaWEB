@@ -6,6 +6,12 @@ CargoPassenger 6 8 17500 overall pickup
 autotruck 7 12 15000.200 loose 4 minitruckbus
 autotruck 2 9 15789 dangerous 3 refrigerator
 cargopassenger 7 12 8900 overall minivan
+
+
+Passenger 3
+
+
+
 passenger 6 8 1200 c targa
 passenger 20 8 17500.2 f cabriolet
 cargopassenger 2 99 11000 special pickup

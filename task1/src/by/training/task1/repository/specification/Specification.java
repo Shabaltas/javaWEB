@@ -1,7 +1,8 @@
 package by.training.task1.repository.specification;
 
 /**
- * The specification represents the rules of business logic in the form of a {@code Boolean} predicate
+ * The specification represents the rules of business logic
+ * in the form of a {@code Boolean} predicate
  * that takes a domain entity as input.
  * Used to find entity that satisfy the concrete {@code Specification}.
  * @param <T> {@code Class} of a domain entity

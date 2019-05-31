@@ -1,19 +1,24 @@
 package test.task1.repository;
 
-import by.training.task1.comparator.*;
+import by.training.task1.comparator.IdComparator;
+import by.training.task1.comparator.PassengerComparator;
+import by.training.task1.comparator.CostComparator;
+import by.training.task1.comparator.CarryingComparator;
 import by.training.task1.entity.*;
 import by.training.task1.exception.InvalidCarDataException;
-import by.training.task1.initializer.Initializer;
 import by.training.task1.repository.CarRepository;
 import by.training.task1.repository.specification.*;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import static java.util.Arrays.asList;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertThrows;
@@ -21,7 +26,7 @@ import static org.testng.Assert.assertThrows;
 public class CarRepositoryTest {
 
     static CarRepository rep;
-    static ArrayList<Car> expectedInitialCars = new ArrayList<>(Arrays.asList(
+    static ArrayList<Car> expectedInitialCars = new ArrayList<>(asList(
             new PassengerCar.Builder()
                     .withId(1)
                     .withCountPassengers(4)
@@ -123,7 +128,7 @@ public class CarRepositoryTest {
                                     .withBodyType(Autotruck.AutotruckType.MINITRUCKBUS)
                                     .build()))},
                 {new ByPassengersSpecification(1, 6),
-                        new ArrayList<>(Arrays.asList(
+                        new ArrayList<>(asList(
                                 new PassengerCar.Builder()
                                     .withId(1)
                                     .withCountPassengers(4)
@@ -167,7 +172,7 @@ public class CarRepositoryTest {
                                     .build()
                                 ))},
                 {new ByCostSpecification(BigDecimal.valueOf(8000), BigDecimal.valueOf(12000)),
-                        new ArrayList<>(Arrays.asList(
+                        new ArrayList<>(asList(
                                 new PassengerCar.Builder()
                                         .withId(1)
                                         .withCountPassengers(4)
@@ -199,7 +204,7 @@ public class CarRepositoryTest {
                         .withMinCountPass(1)
                         .withMaxCountPass(6)
                         .build(),
-                        new ArrayList<>(Arrays.asList(
+                        new ArrayList<>(asList(
                                 new CargoPassengerCar.Builder()
                                         .withId(3)
                                         .withCountPassengers(6)
@@ -240,7 +245,7 @@ public class CarRepositoryTest {
                 {PassengerComparator.getInstance()
                         .thenComparing(CarryingComparator.getInstance())
                         .thenComparing(CostComparator.getInstance()),
-                        new ArrayList<>(Arrays.asList(
+                        new ArrayList<>(asList(
                                 new Autotruck.Builder()
                                         .withId(5)
                                         .withCountPassengers(2)
@@ -322,18 +327,18 @@ public class CarRepositoryTest {
     }
 
     @Test(dataProvider = "4sortTest")
-    public static void sortTest(Comparator<Car> comparator, List<Car> expected){
+    public static void sortTest(Comparator<Car> comparator, List<Car> expected) {
         List<Car> actual = new ArrayList<>();
         rep.sort(comparator);
-        for (int i = 0; i < rep.getCount(); i++){
-            actual.add(rep.get(i));
+        for (int i = 0; i < rep.getCount(); i++) {
+            actual.add(rep.take(i));
         }
         assertEquals(actual, expected);
     }
 /*All tests are performed randomly and I can not predict which ones will be after deleting / adding objects*/
 
     @DataProvider(name = "4removeBeanTest")
-    public static Object[][] createData4removeBean(){
+    public static Object[][] createData4removeBean() {
         return new Object[][]{
                 {new Autotruck.Builder()
                         .withId(2)
@@ -343,7 +348,7 @@ public class CarRepositoryTest {
                         .withCargoType(Truck.CargoType.LOOSE)
                         .withCountAxles((byte)4)
                         .withBodyType(Autotruck.AutotruckType.MINITRUCKBUS)
-                        .build(), new ArrayList<>(Arrays.asList(
+                        .build(), new ArrayList<>(asList(
                                     new PassengerCar.Builder()
                                             .withId(1)
                                             .withCountPassengers(4)
@@ -432,7 +437,7 @@ public class CarRepositoryTest {
         rep.remove(object);
         List<Car> actual = new ArrayList<>();
         for (int i = 0; i < rep.getCount(); i++){
-            actual.add(rep.get(i));
+            actual.add(rep.take(i));
         }
         assertEquals(actual, expected);
     }
@@ -443,7 +448,7 @@ public class CarRepositoryTest {
                 {new Autotruck.Builder()
                         .withId(12)
                         .withCost(BigDecimal.valueOf(9000.780))
-                        .build(), new ArrayList<>(Arrays.asList(
+                        .build(), new ArrayList<>(asList(
                         new PassengerCar.Builder()
                                 .withId(1)
                                 .withCountPassengers(4)
@@ -529,14 +534,14 @@ public class CarRepositoryTest {
 
     @Test(dataProvider = "4addBeanTest")
     public static void addBeanTest(Car object, List<Car> expected) throws InvalidCarDataException {
-        for (Car car : expectedInitialCars){
+        for (Car car : expectedInitialCars) {
             rep.remove(car);
         }
         initRep();
         rep.add(object);
         List<Car> actual = new ArrayList<>();
-        for (int i = 0; i < rep.getCount(); i++){
-            actual.add(rep.get(i));
+        for (int i = 0; i < rep.getCount(); i++) {
+            actual.add(rep.take(i));
         }
         assertEquals(actual, expected);
         rep.remove(object);
@@ -544,18 +549,18 @@ public class CarRepositoryTest {
 
     //duplicate id
     @DataProvider(name = "4badAddBeanTest")
-    public static Object[][] createData4badAddBean(){
+    public static Object[][] createData4badAddBean() {
         return new Object[][]{
                 {new Autotruck.Builder()
                         .withId(1)
                         .withCost(BigDecimal.valueOf(9000.780))
-                        .build(),}
+                        .build()}
         };
     }
 
     @Test(dataProvider = "4badAddBeanTest")
     public static void badAddBeanTest(Car object) throws InvalidCarDataException {
-        for (Car car : expectedInitialCars){
+        for (Car car : expectedInitialCars) {
             rep.remove(car);
         }
         initRep();

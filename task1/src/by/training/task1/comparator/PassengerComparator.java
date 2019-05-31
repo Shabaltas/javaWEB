@@ -12,21 +12,21 @@ import java.util.Comparator;
  *  @version 1.0
  *  @since   2019-05-12
  */
-public class PassengerComparator implements Comparator<Car> {
+public final class PassengerComparator implements Comparator<Car> {
     /**
      * Private constructor to create the only {@code PassengerComparator}.
      */
-    private PassengerComparator(){}
+    private PassengerComparator() { }
     /**
      * The only instance of {@code PassengerComparator} that can be created.
      */
     private static PassengerComparator instance;
     /**
-     * Static method to get the only {@code PassengerComparator}.
+     * Static method to take the only {@code PassengerComparator}.
      * @return the only instance of {@code PassengerComparator}
      */
-    public static PassengerComparator getInstance(){
-        if (instance == null){
+    public static PassengerComparator getInstance() {
+        if (instance == null) {
             instance = new PassengerComparator();
         }
         return instance;
@@ -35,7 +35,8 @@ public class PassengerComparator implements Comparator<Car> {
      * Compares its two arguments for order.  Returns a negative integer,
      * zero, or a positive integer as the first argument is less than, equal
      * to, or greater than the second.
-     * Uses {@code Integer.compare(int x, int y)} to compare two {@code Car} instances
+     * Uses {@code Integer.compare(int x, int y)} to compare
+     * two {@code Car} instances
      * by their maximum passenger capacity numerically.
      *
      * @param  car1 the first {@code Car} to compare
@@ -46,6 +47,7 @@ public class PassengerComparator implements Comparator<Car> {
      */
     @Override
     public int compare(Car car1, Car car2) {
-        return Integer.compare(car1.getCountPassengers(), car2.getCountPassengers());
+        return Integer
+                .compare(car1.getCountPassengers(), car2.getCountPassengers());
     }
 }

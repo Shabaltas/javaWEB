@@ -12,38 +12,43 @@ import java.math.BigDecimal;
  */
 public class ByCostSpecification implements Specification<Car> {
     /**
-     * Maximum cost of a {@code Car}
+     * Maximum cost of a {@code Car}.
      */
     private BigDecimal maxCost;
     /**
-     * Minimum cost of a {@code Car}
+     * Minimum cost of a {@code Car}.
      */
     private BigDecimal minCost;
     /**
-     * Constructs new {@code ByCostSpecification} and initialize maximum cost {@code maxCost}.
+     * Constructs new {@code ByCostSpecification}
+     * and initialize maximum cost {@code maxCost}.
      *
-     * @param maxCost maximum cost
+     * @param maximumCost maximum cost
      */
-    public ByCostSpecification(BigDecimal maxCost){
-        this.maxCost = maxCost;
+    public ByCostSpecification(final BigDecimal maximumCost) {
+        this.maxCost = maximumCost;
         this.minCost = BigDecimal.ZERO;
     }
     /**
-     * Constructs new {@code ByCostSpecification} and initialize maximum cost {@code maxCost}
+     * Constructs new {@code ByCostSpecification}
+     * and initialize maximum cost {@code maxCost}
      * and minimum cost {@code minCost}.
      *
-     * @param minCost minimum cost
-     * @param maxCost maximum cost
+     * @param minimumCost minimum cost
+     * @param maximumCost maximum cost
      */
-    public ByCostSpecification(BigDecimal minCost, BigDecimal maxCost){
-        this.minCost = minCost;
-        this.maxCost = maxCost;
+    public ByCostSpecification(final BigDecimal minimumCost, final BigDecimal maximumCost) {
+        this.minCost = minimumCost;
+        this.maxCost = maximumCost;
     }
     /**
-     * Define whether a domain entity satisfy this {@code ByCostSpecification} or not.
+     * Define whether a domain entity satisfy
+     * this {@code ByCostSpecification} or not.
      * @param car a domain entity
-     * @return {@code true} if the {@code Car.cost} less than or equal to maximum cost
-     *          and greater than or equal to minimum cost, otherwise {@code false}
+     * @return {@code true} if the {@code Car.cost}
+     *          less than or equal to maximum cost
+     *          and greater than or equal to minimum cost,
+     *          otherwise {@code false}
      */
     @Override
     public boolean match(Car car) {

@@ -10,36 +10,46 @@ import java.util.Objects;
  *  @version 1.0
  *  @since   2019-05-12
  */
-public class CargoPassengerCar extends Truck{
+public final class CargoPassengerCar extends Truck {
     /**
-     * Private constructor cause we use Builder pattern to create {@code CargoPassengerCar}
+     * Private constructor
+     * because we use Builder pattern to create {@code CargoPassengerCar}.
      */
-    private CargoPassengerCar(){}
+    private CargoPassengerCar() { }
     /**
-     * All possible types of a cargo passenger car body
+     * All possible types of a cargo passenger car body.
      */
-    public enum CargoPassengerType{
+    public enum CargoPassengerType {
+        /**
+         * Type of body - pickup.
+         */
         PICKUP,
+        /**
+         * Type of body - minivan.
+         */
         MINIVAN,
+        /**
+         * Type of body - minibus.
+         */
         MINIBUS
     }
     /**
-     * The type of the {@code CargoPassengerCar} body
+     * The type of the {@code CargoPassengerCar} body.
      */
     private CargoPassengerType type;
     /**
-     * Returns the type of this {@code CargoPassengerCar} body
+     * Returns the type of this {@code CargoPassengerCar} body.
      * @return the type of this car body
      */
     public CargoPassengerType getType() {
         return type;
     }
     /**
-     * Sets the type of this {@code CargoPassengerCar} body
-     * @param type new type of this car body
+     * Sets the type of this {@code CargoPassengerCar} body.
+     * @param type1 new type of this car body
      */
-    public void setType(CargoPassengerType type) {
-        this.type = type;
+    public void setType(final CargoPassengerType type1) {
+        this.type = type1;
     }
     /**
      * Determines whether or not two cars are equal. Two instances of
@@ -53,13 +63,18 @@ public class CargoPassengerCar extends Truck{
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CargoPassengerCar)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CargoPassengerCar)) {
+            return false;
+        }
         CargoPassengerCar that = (CargoPassengerCar) o;
-        return  cargoType == that.cargoType &&
-                maxCarrying == that.maxCarrying &&
-                countPassengers == that.countPassengers &&
-                cost.compareTo(that.cost) == 0 && type == that.type;
+        return  getCargoType() == that.getCargoType()
+                && getMaxCarrying() == that.getMaxCarrying()
+                && getCountPassengers() == that.getCountPassengers()
+                && getCost().compareTo(that.getCost()) == 0
+                && type == that.type;
     }
     /**
      * Returns the hashcode for this {@code CargoPassengerCar}.
@@ -67,7 +82,8 @@ public class CargoPassengerCar extends Truck{
      */
     @Override
     public int hashCode() {
-        return Objects.hash(maxCarrying, countPassengers, cost, type);
+        return Objects
+                .hash(getMaxCarrying(), getCountPassengers(), getCost(), type);
     }
 
     /**
@@ -78,14 +94,14 @@ public class CargoPassengerCar extends Truck{
      */
     @Override
     public String toString() {
-        return "CargoPassengerCar{" +
-                "id=" + id +
-                ", type=" + type +
-                ", cargoType=" + cargoType +
-                ", countPassengers=" + countPassengers +
-                ", maxCarrying=" + maxCarrying +
-                ", cost=" + cost +
-                '}';
+        return "CargoPassengerCar{"
+                + "id=" + getId()
+                + ", type=" + type
+                + ", cargoType=" + getCargoType()
+                + ", countPassengers=" + getCountPassengers()
+                + ", maxCarrying=" + getMaxCarrying()
+                + ", cost=" + getCost()
+                + '}';
     }
 
     /**
@@ -93,16 +109,16 @@ public class CargoPassengerCar extends Truck{
      * Provides a flexible solution to create various object clearer
      * without constructor overloading.
      */
-    public static class Builder{
+    public static class Builder {
         /**
-         * {@code CargoPassengerCar} that will be created
+         * {@code CargoPassengerCar} that will be created.
          */
         private CargoPassengerCar newCar;
         /**
          * Constructs and initializes a new car with
          * undefined fields.
          */
-        public Builder(){
+        public Builder() {
             newCar = new CargoPassengerCar();
         }
         /**
@@ -110,8 +126,8 @@ public class CargoPassengerCar extends Truck{
          * @param id uniq identifier
          * @return this {@code Builder}
          */
-        public Builder withId(int id){
-            newCar.id = id;
+        public Builder withId(final int id) {
+            newCar.setId(id);
             return this;
         }
         /**
@@ -119,7 +135,7 @@ public class CargoPassengerCar extends Truck{
          * @param type the type
          * @return this {@code Builder}
          */
-        public Builder withType(CargoPassengerType type){
+        public Builder withType(final CargoPassengerType type) {
             newCar.type = type;
             return this;
         }
@@ -128,8 +144,8 @@ public class CargoPassengerCar extends Truck{
          * @param type the cargo type
          * @return this {@code Builder}
          */
-        public Builder withCargoType(CargoType type){
-            newCar.cargoType = type;
+        public Builder withCargoType(final CargoType type) {
+            newCar.setCargoType(type);
             return this;
         }
         /**
@@ -137,8 +153,8 @@ public class CargoPassengerCar extends Truck{
          * @param countPassengers maximum passengers capacity
          * @return this {@code Builder}
          */
-        public Builder withCountPassengers(int countPassengers){
-            newCar.countPassengers = countPassengers;
+        public Builder withCountPassengers(final int countPassengers) {
+            newCar.setCountPassengers(countPassengers);
             return this;
         }
         /**
@@ -146,8 +162,8 @@ public class CargoPassengerCar extends Truck{
          * @param maxCarrying maximum load capacity
          * @return this {@code Builder}
          */
-        public Builder withMaxCarrying(int maxCarrying){
-            newCar.maxCarrying = maxCarrying;
+        public Builder withMaxCarrying(final int maxCarrying) {
+            newCar.setMaxCarrying(maxCarrying);
             return this;
         }
         /**
@@ -155,15 +171,15 @@ public class CargoPassengerCar extends Truck{
          * @param cost the cost
          * @return this {@code Builder}
          */
-        public Builder withCost(BigDecimal cost){
-            newCar.cost = cost;
+        public Builder withCost(final BigDecimal cost) {
+            newCar.setCost(cost);
             return this;
         }
         /**
-         * Returns created new car
+         * Returns created new car.
          * @return new {@code CargoPassengerCar}
          */
-        public CargoPassengerCar build(){
+        public CargoPassengerCar build() {
             return newCar;
         }
     }

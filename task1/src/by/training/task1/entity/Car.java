@@ -11,31 +11,31 @@ import java.math.BigDecimal;
  */
 public abstract class Car extends BaseEntity {
     /**
-     * Maximum passenger capacity
+     * Maximum passenger capacity.
      */
-    protected int countPassengers;
+    private int countPassengers;
     /**
-     * Maximum load capacity
+     * Maximum load capacity.
      */
-    protected int maxCarrying;
+    private int maxCarrying;
     /**
-     * Car cost
+     * Car cost.
      */
-    protected BigDecimal cost;
+    private BigDecimal cost;
 
     /**
-     * @return maximum passenger capacity of this car
+     * @return maximum passenger capacity of this car.
      */
     public int getCountPassengers() {
         return countPassengers;
     }
 
     /**
-     * Sets maximum passenger capacity
-     * @param countPassengers  new maximum passenger capacity
+     * Sets maximum passenger capacity.
+     * @param count new maximum passenger capacity
      */
-    public void setCountPassengers(int countPassengers) {
-        this.countPassengers = countPassengers;
+    public void setCountPassengers(final int count) {
+        this.countPassengers = count;
     }
 
     /**
@@ -46,11 +46,11 @@ public abstract class Car extends BaseEntity {
     }
 
     /**
-     * Sets maximum load capacity
-     * @param maxCarrying new maximum load capacity
+     * Sets maximum load capacity.
+     * @param carrying new maximum load capacity
      */
-    public void setMaxCarrying(int maxCarrying) {
-        this.maxCarrying = maxCarrying;
+    public void setMaxCarrying(final int carrying) {
+        this.maxCarrying = carrying;
     }
 
     /**
@@ -61,11 +61,11 @@ public abstract class Car extends BaseEntity {
     }
 
     /**
-     * Sets the cost
-     * @param cost new cost
+     * Sets the cost.
+     * @param cost1 new cost
      */
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
+    public void setCost(final BigDecimal cost1) {
+        this.cost = cost1;
     }
 
 }

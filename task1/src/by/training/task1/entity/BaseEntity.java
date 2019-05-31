@@ -9,14 +9,23 @@ package by.training.task1.entity;
  */
 public abstract class BaseEntity {
     /**
-     * Identifier. Must be uniq, so there is no possible to change it after initialization.
+     * Identifier.
+     * Must be uniq, so there is no possible to change it after initialization.
      */
-    protected int id;
+    private int id;
 
     /**
      * @return entity's identifier
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * Sets the uniq identifier of this {@code BaseEntity}.
+     * @param identifier uniq identifier.
+     */
+    protected void setId(final int identifier) {
+        this.id = identifier;
     }
 }

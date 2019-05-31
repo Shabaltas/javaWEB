@@ -12,21 +12,21 @@ import java.util.Comparator;
  *  @version 1.0
  *  @since   2019-05-12
  */
-public class CarryingComparator implements Comparator<Car> {
+public final class CarryingComparator implements Comparator<Car> {
     /**
      * Private constructor to create the only {@code CarryingComparator}.
      */
-    private CarryingComparator(){}
+    private CarryingComparator() { }
     /**
      * The only instance of {@code CarryingComparator} that can be created.
      */
     private static CarryingComparator instance;
     /**
-     * Static method to get the only {@code CarryingComparator}.
+     * Static method to take the only {@code CarryingComparator}.
      * @return the only instance of {@code CarryingComparator}
      */
-    public static CarryingComparator getInstance(){
-        if (instance == null){
+    public static CarryingComparator getInstance() {
+        if (instance == null) {
             instance = new CarryingComparator();
         }
         return instance;
@@ -35,8 +35,8 @@ public class CarryingComparator implements Comparator<Car> {
      * Compares its two arguments for order.  Returns a negative integer,
      * zero, or a positive integer as the first argument is less than, equal
      * to, or greater than the second.
-     * Uses {@code Integer.compare(int x, int y)} to compare two {@code Car} instances
-     * by their maximum load capacity numerically.
+     * Uses {@code Integer.compare(int x, int y)} to compare
+     * two {@code Car} instances by their maximum load capacity numerically.
      *
      * @param  car1 the first {@code Car} to compare
      * @param  car2 the second {@code Car} to compare
@@ -45,7 +45,7 @@ public class CarryingComparator implements Comparator<Car> {
      *         a value greater than {@code 0} if {@code car1.maxCarrying > car2.maxCarrying}
      */
     @Override
-    public int compare(Car car1, Car car2) {
+    public int compare(final Car car1, final Car car2) {
         return Integer.compare(car1.getMaxCarrying(), car2.getMaxCarrying());
     }
 }
