@@ -15,7 +15,7 @@ import static org.testng.Assert.assertEquals;
 public class LexemeParserTest {
 
     @DataProvider(name = "lexems4empty")
-    public static Object[][] createLexems(){
+    public static Object[][] createLexems() {
         return new Object[][]{
                 {"test,",  new ArrayList<>(Arrays.asList(new Word(), new PunctualMark()))},
                 {",test",  new ArrayList<>(Arrays.asList(new PunctualMark(), new Word()))},
@@ -26,7 +26,7 @@ public class LexemeParserTest {
         };
     }
     @Test(description = "check correct parsing lexems into words&punctual marks without next parsing", dataProvider = "lexems4empty")
-    public void parseTest(String lexemStr, ArrayList<LexemePart> expectedList){
+    public void parseTest(String lexemStr, ArrayList<LexemePart> expectedList) {
         Lexeme actual = new Lexeme();
         LexemeParser lexemeParser = new LexemeParser();
         lexemeParser.parse(actual, lexemStr);
@@ -36,7 +36,7 @@ public class LexemeParserTest {
     }
 
     @DataProvider(name = "full lexems")
-    public static Object[][] createFullLexems(){
+    public static Object[][] createFullLexems() {
         Word word = new Word();
         word.addComponents(Arrays.asList(new Symbol('t'), new Symbol('e'), new Symbol('s'), new Symbol('t')));
         PunctualMark coma = new PunctualMark();
@@ -55,7 +55,7 @@ public class LexemeParserTest {
         };
     }
     @Test(description = "check correct parsing lexems into words&punctual marks without next parsing", dataProvider = "full lexems")
-    public void parseFullyTest(String lexemStr, ArrayList<LexemePart> expectedList){
+    public void parseFullyTest(String lexemStr, ArrayList<LexemePart> expectedList) {
         Lexeme actual = new Lexeme();
         LexemeParser lexemeParser = new LexemeParser();
         lexemeParser.setNext(new LexemePartParser());

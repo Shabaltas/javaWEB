@@ -1,8 +1,6 @@
 package test.task2.parser;
 
 import by.training.task2.composite.*;
-import by.training.task2.parser.LexemeParser;
-import by.training.task2.parser.ParagraphParser;
 import by.training.task2.parser.SequenceParser;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,7 +12,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SequenceParserTest {
     @DataProvider(name = "sequence4empty")
-    public static Object[][] createSequences(){
+    public static Object[][] createSequences() {
         return new Object[][]{
                 {" ",  new ArrayList<>()},
                 {"Hi...  ",  new ArrayList<>(Arrays.asList(new Lexeme()))},
@@ -24,7 +22,7 @@ public class SequenceParserTest {
         };
     }
     @Test(description = "check correct parsing sequences into lexems without next parsing", dataProvider = "sequence4empty")
-    public void parseTest(String sequenceStr, ArrayList<Lexeme> expectedList){
+    public void parseTest(String sequenceStr, ArrayList<Lexeme> expectedList) {
         Sequence actual = new Sequence();
         SequenceParser sequenceParser = new SequenceParser();
         sequenceParser.parse(actual, sequenceStr);

@@ -5,25 +5,26 @@ import by.training.task2.composite.Composite;
 import by.training.task2.composite.constants.ComponentType;
 import org.apache.log4j.Logger;
 
-public abstract class CompositeParser{
-	private static final Logger LOGGER = Logger.getLogger(CompositeParser.class.getSimpleName());
+public abstract class CompositeParser {
+	private static final Logger LOGGER = Logger
+			.getLogger(CompositeParser.class.getSimpleName());
 
 	ComponentType componentType;
 	private CompositeParser next;
 
-	public CompositeParser setNext(CompositeParser parser){
+	public CompositeParser setNext(CompositeParser parser) {
 		next = parser;
 		return parser;
 	}
-	
-	protected CompositeParser() {
+	CompositeParser() {
 	}
-	
-	public void parse(Composite<? extends Component> composite, String text){
-		if (composite.getClass().getSimpleName().equals(componentType.getClassName())){
+	public void parse(Composite<? extends Component> composite, String text) {
+		if (composite.getClass()
+				.getSimpleName()
+				.equals(componentType.getClassName())) {
 			LOGGER.debug("DO PARSE");
-			doParsing(composite, text);			
-		}else if (next != null){
+			doParsing(composite, text);
+		} else if (next != null) {
 			LOGGER.debug("NEXT PARSE");
 			next.doParsing(composite, text);
 		}

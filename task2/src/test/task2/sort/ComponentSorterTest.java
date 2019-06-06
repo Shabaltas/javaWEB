@@ -14,7 +14,7 @@ import static org.testng.Assert.assertEquals;
 public class ComponentSorterTest {
 
     @DataProvider(name = "4sortByComponents")
-    public static Object[][] createListsByComponents(){
+    public static Object[][] createListsByComponents() {
         Paragraph paragraph1 = new Paragraph();
         Paragraph paragraph2 = new Paragraph();
         Paragraph paragraph3 = new Paragraph();
@@ -33,13 +33,13 @@ public class ComponentSorterTest {
     }
 
     @Test(description = "check correct sorting composits by the count of their \"children\"", dataProvider = "4sortByComponents")
-    public <T extends Composite> void sortByComponentsTest(List<T> compositeList, List<T> expected){
+    public <T extends Composite> void sortByComponentsTest(List<T> compositeList, List<T> expected) {
         new ComponentSorter().sortByComponents(compositeList);
         assertEquals(expected, compositeList);
     }
 
     @DataProvider(name = "4sortComponents")
-    public static Object[][] createComposites(){
+    public static Object[][] createComposites() {
         Text text = new Text();
         Paragraph paragraph1 = new Paragraph();
         Paragraph paragraph2 = new Paragraph();
@@ -55,7 +55,7 @@ public class ComponentSorterTest {
     }
 
     @Test(description = "check correct sorting composite's \"children\" by the count of their \"children\"", dataProvider = "4sortComponents")
-    public void sortComponentsTest(Text composite, List<Paragraph> expectedList){
+    public void sortComponentsTest(Text composite, List<Paragraph> expectedList) {
         new ComponentSorter().sortComponents(composite);
         Text expected = new Text();
         expected.addComponents(expectedList);
@@ -63,7 +63,7 @@ public class ComponentSorterTest {
     }
 
     @DataProvider(name = "4sortWords")
-    public static Object[][] createLexemes(){
+    public static Object[][] createLexemes() {
         Lexeme lexeme1 = new Lexeme();
         Lexeme lexeme2 = new Lexeme();
         Lexeme lexeme3 = new Lexeme();
@@ -97,23 +97,23 @@ public class ComponentSorterTest {
         };
     }
     @Test(description = "check correct sorting lexemes by their words", dataProvider = "4sortWords")
-    public void sortWordsTest(List<Lexeme> lexemes, List<Lexeme> expectedList){
+    public void sortWordsTest(List<Lexeme> lexemes, List<Lexeme> expectedList) {
         new ComponentSorter().sortWords(lexemes);
         assertEquals(expectedList, lexemes);
     }
 
     @DataProvider(name = "4sortSequence")
-    public static Object[][] createSequences(){
+    public static Object[][] createSequences() {
             Object[][] prev = createLexemes();
             Sequence sequence1 = new Sequence();
-            sequence1.addComponents((ArrayList)prev[0][0]);
+            sequence1.addComponents((ArrayList) prev[0][0]);
             return new Object[][]{
                     {sequence1, prev[0][1]},
                     {new Sequence(), new ArrayList<>()}
             };
     }
     @Test(description = "check correct sorting sequence's lexemes by their words", dataProvider = "4sortSequence")
-    public void sortSequenceTest(Sequence sequence, List<Lexeme> expectedList){
+    public void sortSequenceTest(Sequence sequence, List<Lexeme> expectedList) {
         new ComponentSorter().sortSequence(sequence);
         Sequence expected = new Sequence();
         expected.addComponents(expectedList);

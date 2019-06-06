@@ -2,12 +2,10 @@ package by.training.task2.composite;
 
 import java.util.Objects;
 
-public class Symbol implements Component{
-	
+public final class Symbol implements Component {
 	private char symbol;
-	
-	public Symbol(char symbol){
-		this.symbol = symbol;
+	public Symbol(char symbol0){
+		symbol = symbol0;
 	}
 
 	@Override
@@ -22,16 +20,21 @@ public class Symbol implements Component{
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Symbol)) return false;
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof Symbol)) {
+			return false;
+		}
 		Symbol symbol1 = (Symbol) o;
 		return symbol == symbol1.symbol;
 	}
 
 	@Override
 	public String toString() {
-		return "Symbol{" +
-				"symbol=" + symbol +
-				'}';
+		return "Symbol{"
+				+ "symbol="
+				+ symbol
+				+ '}';
 	}
 }

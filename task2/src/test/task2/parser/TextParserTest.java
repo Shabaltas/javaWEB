@@ -13,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 
 public class TextParserTest {
     @DataProvider(name = "text4empty")
-    public static Object[][] createTexts(){
+    public static Object[][] createTexts() {
         return new Object[][]{
                 {"",  new ArrayList<>()},
                 {" ",  new ArrayList<>(Arrays.asList(new Paragraph()))},
@@ -22,7 +22,7 @@ public class TextParserTest {
         };
     }
     @Test(description = "check correct parsing text into paragraphs without next parsing", dataProvider = "text4empty")
-    public void parseTest(String textStr, ArrayList<Paragraph> expectedList){
+    public void parseTest(String textStr, ArrayList<Paragraph> expectedList) {
         Text actual = new Text();
         TextParser textParser = new TextParser();
         textParser.parse(actual, textStr);

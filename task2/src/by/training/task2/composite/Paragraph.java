@@ -1,15 +1,15 @@
 package by.training.task2.composite;
 
-public class Paragraph extends Composite<Sequence>{
+public final class Paragraph extends Composite<Sequence> {
 
 	public Paragraph() {
 		super();
 	}
 
 	@Override
-	public StringBuilder compose(){
+	public StringBuilder compose() {
 		StringBuilder result = new StringBuilder("\t");
-		for (Component component : components){
+		for (Component component : components) {
 			result.append(component.compose());
 		}
 		result.append("\r\n");

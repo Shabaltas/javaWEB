@@ -7,9 +7,9 @@ import by.training.task2.composite.Symbol;
 import by.training.task2.composite.constants.ComponentType;
 import org.apache.log4j.Logger;
 
-public class LexemePartParser extends CompositeParser{
-	private static final Logger LOGGER = Logger.getLogger(LexemePartParser.class.getSimpleName());
-
+public class LexemePartParser extends CompositeParser {
+	private static final Logger LOGGER = Logger
+			.getLogger(LexemePartParser.class.getSimpleName());
 	private static final String SPLIT_REGEX = "";
 
 	public LexemePartParser() {

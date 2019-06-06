@@ -9,15 +9,14 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.testng.Assert.assertEquals;
 
 public class ParagraphParserTest {
 
     @DataProvider(name = "paragraph4empty")
-    public static Object[][] createParagraphs(){
-        return new Object[][]{
+    public static Object[][] createParagraphs() {
+        return new Object[][] {
                 {"",  new ArrayList<>()},
                 {"Hi...",  new ArrayList<>(Arrays.asList(new Sequence()))},
                 {"Hi. What is your name?",  new ArrayList<>(Arrays.asList(new Sequence(), new Sequence()))},
@@ -27,7 +26,7 @@ public class ParagraphParserTest {
         };
     }
     @Test(description = "check correct parsing paragraphs into sequences without next parsing", dataProvider = "paragraph4empty")
-    public void parseTest(String paragraphStr, ArrayList<Sequence> expectedList){
+    public void parseTest(String paragraphStr, ArrayList<Sequence> expectedList) {
         Paragraph actual = new Paragraph();
         ParagraphParser paragraphParser = new ParagraphParser();
         paragraphParser.parse(actual, paragraphStr);

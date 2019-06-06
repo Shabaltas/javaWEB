@@ -1,16 +1,19 @@
 package by.training.task2.parser;
 
-import by.training.task2.composite.*;
+import by.training.task2.composite.Text;
+import by.training.task2.composite.Paragraph;
+import by.training.task2.composite.Component;
+import by.training.task2.composite.Composite;
 import by.training.task2.composite.constants.ComponentType;
 import org.apache.log4j.Logger;
 
-public class TextParser extends CompositeParser{
-	private static final Logger LOGGER = Logger.getLogger(Text.class.getSimpleName());
-
+public class TextParser extends CompositeParser {
+	private static final Logger LOGGER = Logger
+			.getLogger(Text.class.getSimpleName());
 	private static final String SPLIT_REGEX = "\\r\\n\\t";
 	private static final String TOREPLACE  = "[\\r\\n\\s]+";
 
-	public TextParser(){
+	public TextParser() {
 		super();
 		componentType = ComponentType.TEXT;
 	}
