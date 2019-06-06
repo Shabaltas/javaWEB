@@ -15,16 +15,16 @@ public class ThreadToDisable implements Runnable {
     }
 
     public void run(){
-        System.out.printf("Thread %s started...\n", Thread.currentThread().getName());
+        System.out.printf("Thread %s started...time: %d\n", Thread.currentThread().getName(), System.currentTimeMillis());
         int counter = 1;
         while (isActive){
-            System.out.println("Cycle: " + counter++);
+            System.out.println("Disable cycle: " + counter++ + " time: " + System.currentTimeMillis());
             try{
-                TimeUnit.MILLISECONDS.sleep(200);
+                TimeUnit.MILLISECONDS.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.printf("Thread %s ended...\n", Thread.currentThread().getName());
+        System.out.printf("Thread %s ended...time: %d\n", Thread.currentThread().getName(), System.currentTimeMillis());
     }
 }

@@ -11,7 +11,7 @@ public class Client extends Thread {
     public void run() {
         AudioChannel channel = null;
         try {
-            channel = pool.gerResuorce(500);
+            channel = pool.gerResuorce(1_500);
             reading = true;
             System.out.println("Channel client #" + getId() + " took channel #" + channel.getChannellId());
             channel.using();
