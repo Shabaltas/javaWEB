@@ -1,4 +1,4 @@
-package resource;
+package by.training.task3.entity.resource;
 
 public abstract class CommonResource<T> {
     private T value;

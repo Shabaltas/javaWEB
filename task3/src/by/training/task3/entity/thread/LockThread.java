@@ -1,6 +1,6 @@
-package thread;
+package by.training.task3.entity.thread;
 
-import resource.CommonResource;
+import by.training.task3.entity.resource.CommonResource;
 
 import java.util.concurrent.locks.ReentrantLock;
 

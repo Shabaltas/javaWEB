@@ -1,11 +1,12 @@
-package matrix;
+package by.training.task3.entity.matrix;
 
 import java.util.Arrays;
 
 public class Matrix {
+
     private int[][] matrix;
 
-    public Matrix(int rows, int cols) throws MatrixException {
+    public Matrix(int cols, int rows) {
         if (rows < 1 || cols < 1) {
             throw new MatrixException("Negative value for array size");
         }
@@ -13,10 +14,7 @@ public class Matrix {
     }
 
     public Matrix(int size) {
-        if (size < 1) {
-            throw new MatrixException("Negative value for array size");
-        }
-        matrix = new int[size][size];
+        this(size, size);
     }
 
     public int getNumberOfRows() {
