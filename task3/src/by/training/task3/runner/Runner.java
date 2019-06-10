@@ -57,9 +57,9 @@ public class Runner {
         }
         MatrixResource resource = new MatrixResource(matrix);
         ReentrantLock locker = new ReentrantLock();
+        MatrixThreadFactory threadFactory = MatrixThreadFactory.getInstance();
         for (int i = 0; i < threadsCount; i++) {
-            MatrixThreadFactory
-                    .getInstance()
+            threadFactory
                     .createThread(resource, locker, values.get(i))
                     .start();
         }

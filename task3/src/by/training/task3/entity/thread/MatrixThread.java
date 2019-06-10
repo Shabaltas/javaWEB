@@ -38,8 +38,8 @@ public class MatrixThread extends LockThread {
      */
     @Override
     public void run() {
+        Matrix matrix = (Matrix) resource.getValue();
         while (((MatrixResource) resource).getCurrIndex() > -1) {
-            Matrix matrix = (Matrix) resource.getValue();
             locker.lock();
             int i = ((MatrixResource) resource).getCurrIndex();
             if (i > -1) {
@@ -50,13 +50,13 @@ public class MatrixThread extends LockThread {
                 matrix.setElement(i, i, uniqValue);
                 ((MatrixResource) resource).setCurrIndex(--i);
             }
-            locker.unlock();
             try {
                 TimeUnit.MILLISECONDS.sleep((long) (Math.random() * 50));
             } catch (InterruptedException e) {
                 logger.warn(e);
                 Thread.currentThread().interrupt();
             }
+            locker.unlock();
         }
     }
 }
