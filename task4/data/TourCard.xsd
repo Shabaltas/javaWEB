@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://www.example.com/tourcard"
+           xmlns:crd="https://www.example.com/tourcard"
+           elementFormDefault ="qualified">
+
+    <xs:element name="card" type="crd:Card" abstract="true"/>
+    <xs:element name="tourcard" type="crd:TourCard" substitutionGroup="crd:card"/>
+
+<xs:element name="tourcards">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element ref="crd:card" minOccurs="2" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
+
+<xs:complexType name="Place">
+    <xs:all>
+        <xs:element name="region" type="xs:string"/>
+        <xs:element name="city" type="xs:string"/>
+    </xs:all>
+</xs:complexType>
+
+<xs:complexType name="Time">
+    <xs:sequence>
+        <xs:element name="start" type="xs:date"/>
+        <xs:element name="finish" type="xs:date"/>
+    </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Excursion">
+    <xs:all>
+        <xs:element name="excursionname" type="xs:string"/>
+        <xs:element name="excursionprice" type="xs:positiveInteger"/>
+    </xs:all>
+</xs:complexType>
+
+<xs:complexType name="Trip">
+    <xs:all>
+        <xs:element name="tripname" type="xs:string"/>
+        <xs:element name="tripplace" type="xs:string"/>
+        <xs:element name="tripprice" type="xs:positiveInteger"/>
+    </xs:all>
+</xs:complexType>
+
+<xs:complexType name="Card" abstract="true">
+    <xs:sequence>
+        <xs:element name="place" type="crd:Place"/>
+        <xs:element name="time" type="crd:Time"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="price" type="xs:positiveInteger" use="required"/>
+</xs:complexType>
+
+<xs:complexType name="TourCard">
+    <xs:complexContent>
+        <xs:extension base="crd:Card">
+            <xs:sequence>
+                <xs:element name="category" default="sea">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="sea"/>
+                            <xs:enumeration value="shopping"/>
+                            <xs:enumeration value="extreme"/>
+                            <xs:enumeration value="excursion"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                    <xs:element name="excursion" type="crd:Excursion" minOccurs="1" maxOccurs="unbounded"/>
+                    <xs:element name="trip" type="crd:Trip" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element name="transport" default="airplane">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="bus"/>
+                            <xs:enumeration value="airplane"/>
+                            <xs:enumeration value="sheep"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="login" type="crd:Login" use="required" />
+            <xs:attribute name="tourists"
+                          type="xs:positiveInteger"
+                          default="1" use="optional"/>
+            <xs:attribute name="insurance" use="optional" type="xs:boolean" default="false"/>
+        </xs:extension>
+    </xs:complexContent>
+</xs:complexType >
+
+<xs:simpleType name="Login">
+    <xs:restriction base="xs:ID">
+        <xs:pattern value="([a-zA-Z])[a-zA-Z0-9]{7,19}"/>
+    </xs:restriction>
+</xs:simpleType>
+</xs:schema>

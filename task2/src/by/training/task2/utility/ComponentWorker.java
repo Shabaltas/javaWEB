@@ -32,9 +32,9 @@ public final class ComponentWorker {
     public void printComponent(Component component, Path path) throws FileWriteException {
         try {
             Files.writeString(path, component.compose().toString(), StandardOpenOption.APPEND);
-            LOGGER.warn("Printed into file successfully");
+            LOGGER.debug("Printed " + component.getClass().getSimpleName() + " into file successfully");
         } catch (IOException e) {
-            LOGGER.warn("Printing into file failed.", e);
+            LOGGER.warn("Printing " + component.getClass().getSimpleName() + " into file failed.", e);
             throw new FileWriteException(e);
         }
     }

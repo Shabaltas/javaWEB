@@ -18,14 +18,14 @@ import org.apache.log4j.Logger;
 public class Main {
 	private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
 	private static final Path OUTPUT = Paths.get("data\\output.txt");
+	private static final Path INPUT = Paths.get(System.getProperty("user.dir") + "\\data\\input.txt");
 
 	public Main() {
 	}
 
 	public static void main(String[] args) {
-		String dir = System.getProperty("user.dir") + "\\data\\input.txt";
 		ComponentWorker worker = new ComponentWorker();
-		String textStr = new Reader().readFileToString(Paths.get(dir));
+		String textStr = new Reader().readFileToString(INPUT);
 		TextParser textParser = new TextParser();
 		ParagraphParser paragraphParser = (ParagraphParser) textParser.setNext(new ParagraphParser());
 		SequenceParser sequenceParser = (SequenceParser) paragraphParser.setNext(new SequenceParser());
@@ -59,7 +59,7 @@ public class Main {
 		}
 		sequence.forEach(lexeme -> {
 			try {
-				worker.printComponent(lexeme, Paths.get("data\\output.txt"));
+				worker.printComponent(lexeme, OUTPUT);
 			} catch (FileWriteException e) {
 				LOGGER.warn("Wasn't printed: line 48");
 			}
